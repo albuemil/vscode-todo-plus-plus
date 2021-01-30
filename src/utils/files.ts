@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import * as vscode from 'vscode';
 import Config from '../config';
 import FilesView from '../views/files';
+import FocusView from '../views/focus';
 import Folder from './folder';
 
 /* FILES */
@@ -53,7 +54,10 @@ class Files { //FIXME: There's some code duplication between this and `embedded`
 
     /* HANDLERS */
 
-    const refresh = _.debounce ( () => FilesView.refresh (), 250 );
+    const refresh = _.debounce ( () => {
+      FilesView.refresh();
+      FocusView.refresh();
+    }, 250 );
 
     const add = event => {
       console.log('add',event.fsPath);

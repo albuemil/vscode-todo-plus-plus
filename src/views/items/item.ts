@@ -16,7 +16,11 @@ class Item extends vscode.TreeItem {
     super ( label, collapsibleState );
 
     this.obj = obj;
-
+    if (this.label.match(/@thisweek/)) {
+      this.iconPath = new vscode.ThemeIcon("calendar");
+    } else if (this.label.match(/@today/)) {
+      this.iconPath = new vscode.ThemeIcon("star-full");
+    }
   }
 
   setTypeIcon ( type ) {

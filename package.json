@@ -108,6 +108,11 @@
           "description": "Start the tree in an expanded state",
           "default": true
         },
+        "todo.focus.view.expanded": {
+          "type": "boolean",
+          "description": "Start the focus tree in an expanded state",
+          "default": true
+        },
         "todo.indentation": {
           "type": "string",
           "description": "String used for indentation",
@@ -808,6 +813,10 @@
     "views": {
       "todo": [
         {
+          "id": "todo.views.0focus",
+          "name": "Focus"
+        },
+        {
           "id": "todo.views.1files",
           "name": "Files"
         },
@@ -847,6 +856,18 @@
         {
           "command": "todo.archive",
           "when": "editorLangId == todo"
+        },
+        {
+          "command": "todo.viewFocusOpen",
+          "when": "false"
+        },
+        {
+          "command": "todo.viewFocusCollapse",
+          "when": "false"
+        },
+        {
+          "command": "todo.viewFocusExpand",
+          "when": "false"
         },
         {
           "command": "todo.viewFilesOpen",
@@ -941,6 +962,21 @@
         }
       ],
       "view/title": [
+        {
+          "command": "todo.viewFocusOpen",
+          "when": "view == todo.views.0focus && todo-focus-open-button == true",
+          "group": "navigation@1"
+        },
+        {
+          "command": "todo.viewFocusCollapse",
+          "when": "view == todo.views.0focus && todo-focus-expanded == true",
+          "group": "navigation@2"
+        },
+        {
+          "command": "todo.viewFocusExpand",
+          "when": "view == todo.views.0focus && todo-focus-expanded == false",
+          "group": "navigation@2"
+        },
         {
           "command": "todo.viewFilesOpen",
           "when": "view == todo.views.1files && todo-files-open-button == true",
