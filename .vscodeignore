@@ -9,4 +9,5 @@ src/**
 test/**
 tsconfig.json
 webpack.config.js
-.history/*
+.history/**
+**/.history/**
