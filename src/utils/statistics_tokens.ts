@@ -10,7 +10,7 @@ import Todo from './todo';
 
 class StatisticsTokens {
 
-  static supported = ['comments', 'projects', 'tags', 'pending', 'done', 'doing', 'cancelled', 'finished', 'info', 'all', 'percentage', 'est', 'est-total', 'lasted', 'wasted', 'elapsed', 'est-finished', 'est-finished-percentage'];
+  static supported = ['comments', 'projects', 'tags', 'pending', 'done', 'doing', 'cancelled', 'finished', 'info', `unknown`, `important`, 'all', 'percentage', 'est', 'est-total', 'lasted', 'wasted', 'elapsed', 'est-finished', 'est-finished-percentage'];
 
   comments = 0;
   projects = 0;
@@ -20,6 +20,8 @@ class StatisticsTokens {
   doing = 0;
   cancelled = 0;
   info = 0;
+  unknown = 0;
+  important = 0;
   estSeconds = 0;
   estTotalSeconds = 0;
   lastedSeconds = 0;
@@ -32,7 +34,7 @@ class StatisticsTokens {
 
   @memoize
   get all () {
-    return this.pending + this.doing + this.finished + this.info;
+    return this.pending + this.doing + this.finished + this.info + this.unknown + this.important;
   }
 
   @memoize

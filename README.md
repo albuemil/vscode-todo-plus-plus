@@ -6,9 +6,10 @@ Based on Fabio Spampinatos work : https://github.com/fabiospampinato/vscode-todo
 My changes :
 
 - changed extension name 
-- `NEW` **Started**: `o` `O` `⭘` `⭕` `◯`  `[o]` `[O]` `[⭘]` `[⭕]` `[◯]`
-- `NEW` **Task Info**: `-` `→` `⇾` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
-
+- **Started**: `o` `O` `⭘` `⭕` `◯`  `[o]` `[O]` `[⭘]` `[⭕]` `[◯]`
+- **Task Info**: `-` `→` `⇾` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
+- **Task Unknown**: `[?]` `⁉` `[⁉]`
+- **Task Important**: `[!]` `‼` `[‼]`
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/fabiospampinato/vscode-todo-plus/master/resources/logo/logo.png" width="128" alt="Logo">
@@ -26,6 +27,8 @@ Manage todo lists with ease. Powerful, easy to use and customizable. [View the d
   - **Done**: `✔` `✓` `☑` `+` `[x]` `[X]` `[+]`
   - **Cancelled**: `✘` `x` `X` `[-]`
   - **Task Info**: `-` `→` `⇾` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
+  - **Task Unknown**: `[?]` `⁉` `[⁉]`
+  - **Task Important**: `[!]` `‼` `[‼]`
 - **Custom colors**: all colors can be customized
 - **Custom special tags**: special tags' names and their colors can be customized
 - **Archive**: you can move finished todos to a special "Archive" section with a shortcut
@@ -93,10 +96,15 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.symbols.cancelled": "✘", // Cancelled symbol
   "todo.symbols.started": "⭘", // Started symbol
   "todo.symbols.info": "→", // Info symbol
+  "todo.symbols.unknown": "⁉", // Unknown symbol
+  "todo.symbols.important": "‼", // Important/Urgent symbol
   "todo.colors.done": "#a6e22e", // Done todo color
   "todo.colors.cancelled": "#f92672", // Cancelled todo color
   "todo.colors.code": "#fd971f", // Code color
   "todo.colors.info": "#9E9EFF", // Info color
+  "todo.colors.unknown": "#CCCCFF", // Unknown color
+  "todo.colors.important": "#E6A1A8", // Important/Urgent color
+  "todo.colors.important.background": "#600B27", // Important/Urgent background color
   "todo.colors.comment": "#75715e", // Comment color
   "todo.colors.project": "#66d9ef", // Project color
   "todo.colors.projectStatistics": "#4694a3", // Project statistics color
@@ -193,6 +201,8 @@ The following tokens can be used in `todo.statistics.project.text`, `todo.statis
 | `[cancelled]`                | Number of cancelled todos                      |
 | `[finished]`                 | Number of finished todos                       |
 | `[info]`                     | Number of info todos                           |
+| `[unknown]`                  | Number of unknown todos                        |
+| `[important]`                | Number of important/urgent todos               |
 | `[all]`                      | Number of todos                                |
 | `[percentage]`               | Percentage of finished todos                   |
 | `[est]`                      | Estimated time left                            |

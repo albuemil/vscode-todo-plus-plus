@@ -6,7 +6,7 @@ import stringMatches from 'string-matches';
 import * as vscode from 'vscode';
 import Consts from '../consts';
 import Utils from '../utils';
-import {Line, Archive, Comment, Formatted, Project, Tag, Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo} from './items';
+import {Line, Archive, Comment, Formatted, Project, Tag, Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant} from './items';
 
 /* DOCUMENT */
 
@@ -156,6 +156,18 @@ class Document {
   getTodosInfo () {
 
     return this.getItems ( TodoInfo, Consts.regexes.todoInfo );
+
+  }
+
+  getTodosUnknown () {
+
+    return this.getItems ( TodoUnknown, Consts.regexes.todoUnknown );
+
+  }
+
+  getTodosImportant () {
+
+    return this.getItems ( TodoImportant, Consts.regexes.todoImportant );
 
   }
 

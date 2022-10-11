@@ -3,7 +3,7 @@
   "displayName": "YATD+",
   "description": "Yet Another Manage todo lists with ease. Powerful, easy to use and customizable. Based on fabiospampinato!s work",
   "icon": "resources/logo/logo-128x128.png",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "albuemil",
@@ -138,6 +138,16 @@
           "description": "Todo info string",
           "default": "→"
         },
+        "todo.symbols.unknown": {
+          "type": "string",
+          "description": "Todo unknown string",
+          "default": "⁉"
+        },
+        "todo.symbols.important": {
+          "type": "string",
+          "description": "Todo important/urgent string",
+          "default": "‼"
+        },
         "todo.colors.done": {
           "type": "string",
           "description": "Done todo color",
@@ -157,6 +167,21 @@
           "type": "string",
           "description": "Info todo color",
           "default": "#9E9EFF"
+        },
+        "todo.colors.unknown": {
+          "type": "string",
+          "description": "Unknown todo color",
+          "default": "#CCCCFF"
+        },
+        "todo.colors.important.foreground": {
+          "type": "string",
+          "description": "Important/urgent todo foreground color",
+          "default": "#FFAEFB"
+        },
+        "todo.colors.important.background": {
+          "type": "string",
+          "description": "Important/urgent todo background color",
+          "default": "#FF3333"
         },
         "todo.colors.code": {
           "type": "string",
@@ -243,6 +268,12 @@
             "info": {
               "type": "string"
             },
+            "unknown": {
+              "type": "string"
+            },
+            "important": {
+              "type": "string"
+            },
             "code": {
               "type": "string"
             },
@@ -289,6 +320,12 @@
               "type": "string"
             },
             "info": {
+              "type": "string"
+            },
+            "unknown": {
+              "type": "string"
+            },
+            "important": {
               "type": "string"
             },
             "code": {
@@ -530,7 +567,7 @@
         "todo.statistics.statusbar.tooltip": {
           "type": "string",
           "description": "Template used for rendering the tooltip",
-          "default": "[pending] Pending - [doing] Doing - [done] Done - [cancelled] Cancelled - [info] Info"
+          "default": "[pending] Pending - [doing] Doing - [done] Done - [cancelled] Cancelled - [info] Info - [unknown] Unknown - [important] Important"
         },
         "todo.embedded.regex": {
           "type": "string",
@@ -690,6 +727,14 @@
       {
         "command": "todo.toggleInfo",
         "title": "Todo: Toggle Info"
+      },
+      {
+        "command": "todo.toggleUnknown",
+        "title": "Todo: Toggle Unknown"
+      },
+      {
+        "command": "todo.toggleImportant",
+        "title": "Todo: Toggle Important/Urgent"
       },
       {
         "command": "todo.toggleTimer",
@@ -896,6 +941,14 @@
         },
         {
           "command": "todo.toggleInfo",
+          "when": "editorLangId == todo"
+        },
+        {
+          "command": "todo.toggleUnknown",
+          "when": "editorLangId == todo"
+        },
+        {
+          "command": "todo.toggleImportant",
           "when": "editorLangId == todo"
         },
         {

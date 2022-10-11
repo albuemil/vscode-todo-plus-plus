@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import * as vscode from 'vscode';
 import Config from '../config';
 import Consts from '../consts';
-import {Comment, Project, Tag, TodoBox, TodoDone, TodoCancelled, TodoStarted, TodoInfo} from '../todo/items';
+import {Comment, Project, Tag, TodoBox, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant} from '../todo/items';
 import AST from './ast';
 import Tokens from './statistics_tokens';
 import Time from './time';
@@ -179,6 +179,8 @@ const Statistics = {
         done: items.todosDone.length,
         cancelled: items.todosCancelled.length,
         info: items.todosInfo.length,
+        unknown: items.todosUnknown.length,
+        important: items.todosImportant.length,
       });
 
       items.tags.forEach ( tag => Statistics.timeTags.add ( tag.text, tokens, Statistics.tokens.disabled.global ) );
@@ -211,7 +213,7 @@ const Statistics = {
 
       }
 
-      const groups = [items.projects, items.todosBox, items.todosStarted, items.todosDone, items.todosCancelled, items.todosInfo, items.tags],
+      const groups = [items.projects, items.todosBox, items.todosStarted, items.todosDone, items.todosCancelled, items.todosInfo, items.todosUnknown, items.todosImportant, items.tags],
             lines = groups.reduce ( ( arr1, arr2 ) => mergeSorted ( arr1, arr2 ) );
 
       items.projects.forEach ( project => {
@@ -260,12 +262,14 @@ const Statistics = {
             tokens.doing += nextTokens.doing;
             tokens.cancelled += nextTokens.cancelled;
             tokens.info += nextTokens.info;
+            tokens.unknown += nextTokens.unknown;
+            tokens.important += nextTokens.important;
             tokens.estSeconds += nextTokens.estSeconds;
             tokens.estTotalSeconds += nextTokens.estTotalSeconds;
             tokens.lastedSeconds += nextTokens.lastedSeconds;
             tokens.wastedSeconds += nextTokens.wastedSeconds;
 
-            i += nextTokens.comments + nextTokens.projects + nextTokens.tags + nextTokens.pending + nextTokens.doing + nextTokens.done + nextTokens.cancelled + nextTokens.info; // Jumping
+            i += nextTokens.comments + nextTokens.projects + nextTokens.tags + nextTokens.pending + nextTokens.doing + nextTokens.done + nextTokens.cancelled + nextTokens.info + nextTokens.unknown + nextTokens.important; // Jumping
 
           } if ( nextItem instanceof Comment ) {
 
@@ -287,10 +291,17 @@ const Statistics = {
 
             tokens.cancelled++;
 
-          }
-          else if ( nextItem instanceof TodoInfo ) {
+          } else if ( nextItem instanceof TodoInfo ) {
 
             tokens.info++;
+
+          } else if ( nextItem instanceof TodoUnknown ) {
+
+            tokens.unknown++;
+
+          }else if ( nextItem instanceof TodoImportant ) {
+
+          tokens.important++;
 
           }
 

@@ -15,6 +15,8 @@ import TodoDone from './todo_done';
 import TodoCancelled from './todo_cancelled';
 import TodoStarted from './todo_started';
 import TodoInfo from './todo_info';
+import TodoUnknown from './todo_unknown';
+import TodoImportant from './todo_important';
 
 /* DOCUMENTS LINES CACHE */
 
@@ -170,7 +172,9 @@ const Document = {
       todosDone: doc.getTodosDone (),
       todosCancelled: doc.getTodosCancelled (),
       todosStarted: doc.getTodosStarted (),
-      todosInfo: doc.getTodosInfo ()
+      todosInfo: doc.getTodosInfo (),
+      todosUnknown: doc.getTodosUnknown (),
+      todosImportant: doc.getTodosImportant ()
     };
 
   },
@@ -185,7 +189,9 @@ const Document = {
       new TodoDone ().getDecorations ( items.todosDone ),
       new TodoCancelled ().getDecorations ( items.todosCancelled ),
       new TodoStarted ().getDecorations ( items.todosStarted ),
-      new TodoInfo ().getDecorations ( items.todosInfo )
+      new TodoInfo ().getDecorations ( items.todosInfo ),
+      new TodoUnknown ().getDecorations ( items.todosUnknown ),
+      new TodoImportant ().getDecorations ( items.todosImportant )
     );
 
   }
