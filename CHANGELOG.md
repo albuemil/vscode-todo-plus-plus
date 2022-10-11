@@ -1,3 +1,11 @@
+### Version 0.2.1
+- Added some missing symbols for "info" and "started"
+- Added menu for setting a line as "info"
+
+### Version 0.2.0
+- Added support for colloring the "info" tasks
+- Fixed issue with extention not loading correctly
+
 ### Version 0.1.0
 - First version modified by Emil
 - Added support for colloring the "working" (or "in progress") tasks

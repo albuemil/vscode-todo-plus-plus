@@ -3,7 +3,7 @@
   "displayName": "YATD+",
   "description": "Yet Another Manage todo lists with ease. Powerful, easy to use and customizable. Based on fabiospampinato!s work",
   "icon": "resources/logo/logo-128x128.png",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "albuemil",
@@ -688,6 +688,10 @@
         "title": "Todo: Toggle Start"
       },
       {
+        "command": "todo.toggleInfo",
+        "title": "Todo: Toggle Info"
+      },
+      {
         "command": "todo.toggleTimer",
         "title": "Todo: Toggle Timer"
       },
@@ -804,6 +808,10 @@
         "title": "Toggle Start"
       },
       {
+        "command": "todo.editorToggleInfo",
+        "title": "Toggle Info"
+      },
+      {
         "command": "todo.editorArchive",
         "title": "Archive"
       }
@@ -833,6 +841,11 @@
       {
         "command": "todo.toggleStart",
         "key": "Alt+s",
+        "when": "editorTextFocus && editorLangId == todo"
+      },
+      {
+        "command": "todo.toggleInfo",
+        "key": "Alt+i",
         "when": "editorTextFocus && editorLangId == todo"
       },
       {
@@ -879,6 +892,10 @@
         },
         {
           "command": "todo.toggleStart",
+          "when": "editorLangId == todo"
+        },
+        {
+          "command": "todo.toggleInfo",
           "when": "editorLangId == todo"
         },
         {
@@ -938,6 +955,10 @@
           "when": "false"
         },
         {
+          "command": "todo.editorToggleInfo",
+          "when": "false"
+        },
+        {
           "command": "todo.editorArchive",
           "when": "false"
         },
@@ -972,8 +993,13 @@
           "when": "editorTextFocus && editorLangId == todo"
         },
         {
-          "command": "todo.editorArchive",
+          "command": "todo.editorToggleInfo",
           "group": "todo@5",
+          "when": "editorTextFocus && editorLangId == todo"
+        },
+        {
+          "command": "todo.editorArchive",
+          "group": "todo@6",
           "when": "editorTextFocus && editorLangId == todo"
         }
       ],

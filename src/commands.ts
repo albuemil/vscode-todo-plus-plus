@@ -162,6 +162,12 @@ function toggleStart () {
 
 }
 
+function toggleInfo () {
+
+  return callTodosMethod ( 'toggleInfo' );
+
+}
+
 function toggleTimer () {
 
   Consts.timer = !Consts.timer;
@@ -283,5 +289,5 @@ function viewEmbeddedShowActiveFile () {
 
 /* EXPORT */
 
-export { open, openEmbedded, toggleBox, toggleDone, toggleCancelled, toggleStart, toggleTimer, archive, viewOpenFile, viewRevealTodo, viewFilesOpen, viewFilesCollapse, viewFilesExpand, viewEmbeddedCollapse, viewEmbeddedExpand, viewEmbeddedFilter, embeddedFilter, viewEmbeddedClearFilter, embeddedClearFilter, viewEmbeddedToggleAllFiles, viewEmbeddedShowAllFiles, viewEmbeddedShowActiveFile };
-export { toggleBox as editorToggleBox, toggleDone as editorToggleDone, toggleCancelled as editorToggleCancelled, toggleStart as editorToggleStart, archive as editorArchive };
+export { open, openEmbedded, toggleBox, toggleDone, toggleCancelled, toggleStart, toggleInfo, toggleTimer, archive, viewOpenFile, viewRevealTodo, viewFilesOpen, viewFilesCollapse, viewFilesExpand, viewEmbeddedCollapse, viewEmbeddedExpand, viewEmbeddedFilter, embeddedFilter, viewEmbeddedClearFilter, embeddedClearFilter, viewEmbeddedToggleAllFiles, viewEmbeddedShowAllFiles, viewEmbeddedShowActiveFile };
+export { toggleBox as editorToggleBox, toggleDone as editorToggleDone, toggleCancelled as editorToggleCancelled, toggleStart as editorToggleStart, toggleInfo as editorToggleInfo, archive as editorArchive };
