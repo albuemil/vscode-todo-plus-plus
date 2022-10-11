@@ -73,6 +73,7 @@ It adds 6 shortcuts when editing a `Todo` file:
 'Alt+Enter' // Triggers `Todo: Toggle Box`
 'Alt+D' // Triggers `Todo: Toggle Done`
 'Alt+C' // Triggers `Todo: Toggle Cancelled`
+'Alt+I' // Triggers `Todo: Toggle Info`
 'Alt+S' // Triggers `Todo: Toggle Start`
 'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`
 ```
@@ -95,6 +96,7 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.colors.done": "#a6e22e", // Done todo color
   "todo.colors.cancelled": "#f92672", // Cancelled todo color
   "todo.colors.code": "#fd971f", // Code color
+  "todo.colors.info": "#9E9EFF", // Info color
   "todo.colors.comment": "#75715e", // Comment color
   "todo.colors.project": "#66d9ef", // Project color
   "todo.colors.projectStatistics": "#4694a3", // Project statistics color
@@ -203,7 +205,7 @@ The following tokens can be used in `todo.statistics.project.text`, `todo.statis
 
 ## Demo
 
-### [Example todo file](https://github.com/fabiospampinato/vscode-todo-plus/blob/master/resources/readme.todo)
+### [Example todo file](https://github.com/albuemil/vscode-todo-plus-plus/blob/master/resources/readme.todo)
 
 ![Example todo file](resources/demo/syntax.png)
 
