@@ -6,8 +6,8 @@ Based on Fabio Spampinatos work : https://github.com/fabiospampinato/vscode-todo
 My changes :
 
 - changed extension name 
-- `NEW` **Started**: `⭘` `⭕` `◯` `o` `O` `[o]` `[O]`
-- `NEW` **Task Info**: `-` `→` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
+- `NEW` **Started**: `o` `O` `⭘` `⭕` `◯`  `[o]` `[O]` `[⭘]` `[⭕]` `[◯]`
+- `NEW` **Task Info**: `-` `→` `⇾` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
 
 
 <p align="center">
@@ -22,10 +22,10 @@ Manage todo lists with ease. Powerful, easy to use and customizable. [View the d
 - **Portable**: being a plain text format you can read and edit it using any editor
 - **Custom symbols**: you can replace the default symbols with any of the supported ones
   - **Box**: `❍` `❑` `■` `⬜` `□` `☐` `▪` `▫` `[]` `[ ]`
-  - `NEW` **Started**: `⭘` `⭕` `◯` `o` `O` `[o]` `[O]` `[=]`
+  - **Started**: `o` `O` `⭘` `⭕` `◯`  `[o]` `[O]` `[⭘]` `[⭕]` `[◯]`
   - **Done**: `✔` `✓` `☑` `+` `[x]` `[X]` `[+]`
   - **Cancelled**: `✘` `x` `X` `[-]`
-  - `NEW` **Task Info**: `-` `→` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
+  - **Task Info**: `-` `→` `⇾` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
 - **Custom colors**: all colors can be customized
 - **Custom special tags**: special tags' names and their colors can be customized
 - **Archive**: you can move finished todos to a special "Archive" section with a shortcut
@@ -58,6 +58,7 @@ It adds 11 commands to the command palette:
 'Todo: Toggle Done' // Toggle todo's done symbol
 'Todo: Toggle Cancelled' // Toggle todo's cancelled symbol
 'Todo: Toggle Start' // Toggle a todo as started
+'Todo: Toggle Info' // Toggle a todo as info
 'Todo: Toggle Timer' // Toggle the timer
 'Todo: Archive' // Archive finished todos
 'Todo: Embedded View - Filter' // Filter the embedded todos view

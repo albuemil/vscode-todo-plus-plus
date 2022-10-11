@@ -375,6 +375,27 @@ class Todo extends Item {
 
   }
 
+  toggleInfo ( force: boolean = !this.isInfo () ) {
+
+    const symbol = force ? Consts.symbols.info : '',
+          state = force ? 'info' : 'other';
+
+    this.setSymbolAndState ( symbol, state );
+
+  }
+
+  info () {
+
+    this.toggleInfo ( true );
+
+  }
+
+  uninfo () {
+
+    this.toggleInfo ( false );
+
+  }
+
   /* IS */
 
   isBox () {
