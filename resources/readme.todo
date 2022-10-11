@@ -16,6 +16,12 @@ Todos:
   Cancelled:
     ✘ Press Alt+C to mark a todo as cancelled
     ✘ Press it again to undo the action
+  Started:
+    ⭘ Press Alt+S to mark a todo as started
+    ⭘ Press it again to undo the action
+  Info:
+    → Press Alt+I to mark a todo as cancelled
+    → Press it again to undo the action
   Tagging:
     ☐ You can add tags using the @ symbol, like this @tag
     ☐ There are some special, customizable tags: @critical @high @low @today
