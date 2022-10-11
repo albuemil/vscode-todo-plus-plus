@@ -22,6 +22,14 @@ Todos:
   Info:
     → Press Alt+I to mark a todo as cancelled
     → Press it again to undo the action
+  Unknown:
+    [?] unknown
+    ⁉ unknown
+    [⁉] unknown
+  Important:
+    [!] important
+    ‼ important
+    [‼] important
   Tagging:
     ☐ You can add tags using the @ symbol, like this @tag
     ☐ There are some special, customizable tags: @critical @high @low @today

@@ -2,35 +2,35 @@
 
 import * as vscode from "vscode";
 import Consts from "../../consts";
-import TodoInfoItem from "../items/todo_info";
+import TodoUnknownItem from "../items/todo_unknown";
 import Line from "./line";
 
 /* DECORATION TYPES */
 
-const TODO_INFO = vscode.window.createTextEditorDecorationType({
-  color: Consts.colors.info,
+const TODO_UNKNOWN = vscode.window.createTextEditorDecorationType({
+  color: Consts.colors.unknown,
   rangeBehavior: vscode.DecorationRangeBehavior.ClosedOpen,
   dark: {
-    color: Consts.colors.dark.info,
+    color: Consts.colors.dark.unknown,
   },
   light: {
-    color: Consts.colors.light.info,
+    color: Consts.colors.light.unknown,
   },
 });
 
-/* TODO INFO */
+/* TODO UNKNOWN */
 
-class TodoInfo extends Line {
-  TYPES = [TODO_INFO];
+class TodoUnknown extends Line {
+  TYPES = [TODO_UNKNOWN];
 
   getItemRanges(
-    todoInfo: TodoInfoItem,
+    todoUnknown: TodoUnknownItem,
     negRange?: vscode.Range | vscode.Range[]
   ) {
     return [
       this.getRangeDifference(
-        todoInfo.text,
-        todoInfo.range,
+        todoUnknown.text,
+        todoUnknown.range,
         negRange || [Consts.regexes.tag, Consts.regexes.formattedCode]
       ),
     ];
@@ -39,4 +39,4 @@ class TodoInfo extends Line {
 
 /* EXPORT */
 
-export default TodoInfo;
+export default TodoUnknown;

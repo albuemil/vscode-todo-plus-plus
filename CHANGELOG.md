@@ -1,3 +1,6 @@
+### Version 0.3
+- Added Unknown and Important/Urgent todos
+
 ### Version 0.2.1
 - Added some missing symbols for "info" and "started"
 - Added menu for setting a line as "info"

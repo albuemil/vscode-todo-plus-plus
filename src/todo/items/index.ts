@@ -15,7 +15,9 @@ import TodoDone from './todo_done';
 import TodoCancelled from './todo_cancelled';
 import TodoStarted from './todo_started';
 import TodoInfo from './todo_info';
+import TodoUnknown from './todo_unknown';
+import TodoImportant from './todo_important';
 
 /* EXPORT */
 
-export {Archive, Comment, Formatted, Item, Line, Project, Tag, Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo};
+export {Archive, Comment, Formatted, Item, Line, Project, Tag, Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant};
