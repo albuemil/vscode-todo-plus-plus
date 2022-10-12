@@ -301,7 +301,7 @@ const Statistics = {
 
           }else if ( nextItem instanceof TodoImportant ) {
 
-          tokens.important++;
+            tokens.important++;
 
           }
 

@@ -3,7 +3,7 @@
   "displayName": "YATD+",
   "description": "Yet Another Manage todo lists with ease. Powerful, easy to use and customizable. Based on fabiospampinato!s work",
   "icon": "resources/logo/logo-128x128.png",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "albuemil",
@@ -131,7 +131,7 @@
         "todo.symbols.started": {
           "type": "string",
           "description": "Todo started string",
-          "default": "⭘"
+          "default": "⇶"
         },
         "todo.symbols.info": {
           "type": "string",
@@ -567,7 +567,7 @@
         "todo.statistics.statusbar.tooltip": {
           "type": "string",
           "description": "Template used for rendering the tooltip",
-          "default": "[pending] Pending - [doing] Doing - [done] Done - [cancelled] Cancelled - [info] Info - [unknown] Unknown - [important] Important"
+          "default": "[pending] Pending - [important] Important - [doing] Doing - [done] Done - [cancelled] Cancelled - [unknown] Unknown ([info] Info)"
         },
         "todo.embedded.regex": {
           "type": "string",
@@ -710,31 +710,31 @@
       },
       {
         "command": "todo.toggleBox",
-        "title": "Todo: Toggle Box"
+        "title": "Todo: Toggle Box : ☐"
       },
       {
         "command": "todo.toggleDone",
-        "title": "Todo: Toggle Done"
+        "title": "Todo: Toggle Done : ✔"
       },
       {
         "command": "todo.toggleCancelled",
-        "title": "Todo: Toggle Cancelled"
+        "title": "Todo: Toggle Cancelled : ✘"
       },
       {
         "command": "todo.toggleStart",
-        "title": "Todo: Toggle Start"
+        "title": "Todo: Toggle Started : ⇶"
       },
       {
         "command": "todo.toggleInfo",
-        "title": "Todo: Toggle Info"
+        "title": "Todo: Toggle Info : →"
       },
       {
         "command": "todo.toggleUnknown",
-        "title": "Todo: Toggle Unknown"
+        "title": "Todo: Toggle Unknown : ⁉"
       },
       {
         "command": "todo.toggleImportant",
-        "title": "Todo: Toggle Important/Urgent"
+        "title": "Todo: Toggle Important/Urgent : ‼"
       },
       {
         "command": "todo.toggleTimer",
@@ -838,23 +838,31 @@
       },
       {
         "command": "todo.editorToggleBox",
-        "title": "Toggle Box"
+        "title": "☐ Toggle Box"
       },
       {
         "command": "todo.editorToggleDone",
-        "title": "Toggle Done"
+        "title": "✔ Toggle Done"
       },
       {
         "command": "todo.editorToggleCancelled",
-        "title": "Toggle Cancelled"
+        "title": "✘ Toggle Cancelled"
       },
       {
         "command": "todo.editorToggleStart",
-        "title": "Toggle Start"
+        "title": "⇶ Toggle Started"
       },
       {
         "command": "todo.editorToggleInfo",
-        "title": "Toggle Info"
+        "title": "→ Toggle Info"
+      },
+      {
+        "command": "todo.editorToggleImportant",
+        "title": "‼ Toggle Important"
+      },
+      {
+        "command": "todo.editorToggleUnknown",
+        "title": "⁉ Toggle Unknown"
       },
       {
         "command": "todo.editorArchive",
@@ -1026,33 +1034,49 @@
       ],
       "editor/context": [
         {
+          "submenu": "todo.editor.context",
+          "group": "todo"
+        }
+      ],
+      "todo.editor.context": [
+        {
           "command": "todo.editorToggleBox",
           "group": "todo@1",
           "when": "editorTextFocus && editorLangId == todo"
         },
         {
-          "command": "todo.editorToggleDone",
+          "command": "todo.editorToggleImportant",
           "group": "todo@2",
           "when": "editorTextFocus && editorLangId == todo"
         },
         {
-          "command": "todo.editorToggleCancelled",
+          "command": "todo.editorToggleDone",
           "group": "todo@3",
           "when": "editorTextFocus && editorLangId == todo"
         },
         {
-          "command": "todo.editorToggleStart",
+          "command": "todo.editorToggleCancelled",
           "group": "todo@4",
           "when": "editorTextFocus && editorLangId == todo"
         },
         {
-          "command": "todo.editorToggleInfo",
+          "command": "todo.editorToggleStart",
           "group": "todo@5",
           "when": "editorTextFocus && editorLangId == todo"
         },
         {
-          "command": "todo.editorArchive",
+          "command": "todo.editorToggleInfo",
           "group": "todo@6",
+          "when": "editorTextFocus && editorLangId == todo"
+        },
+        {
+          "command": "todo.editorToggleUnknown",
+          "group": "todo@7",
+          "when": "editorTextFocus && editorLangId == todo"
+        },
+        {
+          "command": "todo.editorArchive",
+          "group": "todo@8",
           "when": "editorTextFocus && editorLangId == todo"
         }
       ],
@@ -1109,7 +1133,13 @@
           "when": "view =~ /todo\\.views/ && viewItem == file"
         }
       ]
-    }
+    },
+    "submenus": [
+      {
+          "id": "todo.editor.context",
+          "label": "Todo Task"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "rm -rf out && webpack --mode production",

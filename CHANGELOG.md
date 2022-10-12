@@ -1,3 +1,10 @@
+### Version 0.3.1
+- Updated the symbols for Started/Working on and Info
+- Update so the Info items are not counted towards the total
+- Fix Unknown and Important not being shown in project statistics
+- Added menu entry for Important
+- Moved all menu entries to submenu
+
 ### Version 0.3
 - Added Unknown and Important/Urgent todos
 

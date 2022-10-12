@@ -12,16 +12,17 @@ Todos:
     ☐ Press Cmd/Ctrl+Enter to add a new todo
   Done:
     ✔ Press Alt+D to mark a todo as done
-    ✔ Press it again to undo the action
+    ☑ Press it again to undo the action
   Cancelled:
     ✘ Press Alt+C to mark a todo as cancelled
     ✘ Press it again to undo the action
   Started:
     ⭘ Press Alt+S to mark a todo as started
-    ⭘ Press it again to undo the action
+    ⇶ Press it again to undo the action
   Info:
     → Press Alt+I to mark a todo as cancelled
-    → Press it again to undo the action
+    › Press it again to undo the action
+    > some more info
   Unknown:
     [?] unknown
     ⁉ unknown

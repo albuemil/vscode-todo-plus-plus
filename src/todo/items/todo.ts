@@ -42,7 +42,9 @@ class Todo extends Item {
       cancelled: false,
       started: false,
       info: false,
-      other: false
+      other: false,
+      unknown: false,
+      important: false
     };
 
     status[state] = true;
@@ -57,10 +59,12 @@ class Todo extends Item {
           done = !box && this.isDone (),
           cancelled = !box && !done && this.isCancelled (),
           started = !box && !done && !cancelled && this.isStarted(),
-          info = !box && !done && !cancelled && this.isInfo(),
-          other = !box && !done && !cancelled && !started && !info;
+          info = !box && !done && !cancelled && !started && this.isInfo(),
+          unknown = !box && !done && !cancelled && !started && !info && this.isUnknown(),
+          important = !box && !done && !cancelled && !started && !info && !unknown && this.isImportant(),
+          other = !box && !done && !cancelled && !started && !info && !unknown && !important;
 
-    return { box, done, cancelled, started, info, other };
+    return { box, done, cancelled, started, info, unknown, important, other };
 
   }
 
@@ -396,6 +400,48 @@ class Todo extends Item {
 
   }
 
+  toggleImportant ( force: boolean = !this.isImportant () ) {
+
+    const symbol = force ? Consts.symbols.important : '',
+          state = force ? 'important' : 'other';
+
+    this.setSymbolAndState ( symbol, state );
+
+  }
+
+  important () {
+
+    this.toggleImportant ( true );
+
+  }
+
+  unimportant () {
+
+    this.toggleImportant ( false );
+
+  }
+
+  toggleUnknown ( force: boolean = !this.isUnknown () ) {
+
+    const symbol = force ? Consts.symbols.unknown : '',
+          state = force ? 'unknown' : 'other';
+
+    this.setSymbolAndState ( symbol, state );
+
+  }
+
+  unknown () {
+
+    this.toggleUnknown ( true );
+
+  }
+
+  known () {
+
+    this.toggleUnknown ( false );
+
+  }
+
   /* IS */
 
   isBox () {
@@ -433,6 +479,18 @@ class Todo extends Item {
   isInfo () {
 
     return Item.is ( this.text, Consts.regexes.todoInfo );
+
+  }
+
+  isUnknown () {
+
+    return Item.is ( this.text, Consts.regexes.todoUnknown );
+
+  }
+
+  isImportant () {
+
+    return Item.is ( this.text, Consts.regexes.todoImportant );
 
   }
 

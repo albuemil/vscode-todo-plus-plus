@@ -42,7 +42,7 @@ class Document {
 
   /* GET */
 
-  getItems ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox | typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo, regex: RegExp ) {
+  getItems ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox | typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown | typeof TodoImportant, regex: RegExp ) {
 
     const matchText = _.isString ( this.text ) ? this.text : this.textDocument.getText (),
           matches = stringMatches ( matchText, regex );
@@ -53,7 +53,7 @@ class Document {
 
   }
 
-  getItemAt ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox | typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo, lineNumber: number, checkValidity = true ) {
+  getItemAt ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox | typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown | typeof TodoImportant, lineNumber: number, checkValidity = true ) {
 
     const line = this.textDocument.lineAt ( lineNumber );
 
