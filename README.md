@@ -6,10 +6,10 @@ Based on Fabio Spampinatos work : https://github.com/fabiospampinato/vscode-todo
 My changes :
 
 - changed extension name 
-- **Started**: `o` `O` `⭘` `⭕` `◯`  `[o]` `[O]` `[⭘]` `[⭕]` `[◯]`
-- **Task Info**: `-` `→` `⇾` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
-- **Task Unknown**: `[?]` `⁉` `[⁉]`
-- **Task Important**: `[!]` `‼` `[‼]`
+- **Started**: `o` `O` `⭘` `⭕` `◯` `[o]` `[O]` `[⭘]` `[⭕]` `[◯]` `⇶` `[⇶]` `[=]`
+- **Info**: `-` `→` `⇾` `›` `>` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[>]` `[–]` `[—]` `[≡]`
+- **Unknown**: `⁉` `[?]` `[⁉]`
+- **Important**: `‼` `[!]` `[‼]`
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/fabiospampinato/vscode-todo-plus/master/resources/logo/logo.png" width="128" alt="Logo">
@@ -23,12 +23,12 @@ Manage todo lists with ease. Powerful, easy to use and customizable. [View the d
 - **Portable**: being a plain text format you can read and edit it using any editor
 - **Custom symbols**: you can replace the default symbols with any of the supported ones
   - **Box**: `❍` `❑` `■` `⬜` `□` `☐` `▪` `▫` `[]` `[ ]`
-  - **Started**: `o` `O` `⭘` `⭕` `◯`  `[o]` `[O]` `[⭘]` `[⭕]` `[◯]`
+  - **Started**: `o` `O` `⭘` `⭕` `◯` `[o]` `[O]` `[⭘]` `[⭕]` `[◯]` `⇶` `[⇶]` `[=]`
   - **Done**: `✔` `✓` `☑` `+` `[x]` `[X]` `[+]`
   - **Cancelled**: `✘` `x` `X` `[-]`
-  - **Task Info**: `-` `→` `⇾` `›` `⇶` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[⇶]` `[›]` `[–]` `[—]` `[≡]`
-  - **Task Unknown**: `[?]` `⁉` `[⁉]`
-  - **Task Important**: `[!]` `‼` `[‼]`
+  - **Info**: `-` `→` `⇾` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[–]` `[—]` `[≡]`
+  - **Unknown**: `⁉` `[?]` `[⁉]`
+  - **Important**: `‼` `[!]` `[‼]`
 - **Custom colors**: all colors can be customized
 - **Custom special tags**: special tags' names and their colors can be customized
 - **Archive**: you can move finished todos to a special "Archive" section with a shortcut
@@ -57,11 +57,13 @@ It adds 11 commands to the command palette:
 ```js
 'Todo: Open' // Open or create your project's todo file
 'Todo: Open Embedded' // Open embedded todos
-'Todo: Toggle Box' // Toggle todo's box symbol
-'Todo: Toggle Done' // Toggle todo's done symbol
-'Todo: Toggle Cancelled' // Toggle todo's cancelled symbol
-'Todo: Toggle Start' // Toggle a todo as started
-'Todo: Toggle Info' // Toggle a todo as info
+'Todo: Toggle Box : ☐' // Toggle todo's box symbol
+'Todo: Toggle Important/Urgent : ‼' // Toggle a todo as important/urgent
+'Todo: Toggle Done : ✔' // Toggle todo's done symbol
+'Todo: Toggle Cancelled : ✘' // Toggle todo's cancelled symbol
+'Todo: Toggle Started : ⇶' // Toggle a todo as started
+'Todo: Toggle Info : →' // Toggle a todo as info
+'Todo: Toggle Unknown : ⁉' // Toggle a todo as unknown
 'Todo: Toggle Timer' // Toggle the timer
 'Todo: Archive' // Archive finished todos
 'Todo: Embedded View - Filter' // Filter the embedded todos view
@@ -94,7 +96,7 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.symbols.box": "☐", // Box symbol
   "todo.symbols.done": "✔", // Done symbol
   "todo.symbols.cancelled": "✘", // Cancelled symbol
-  "todo.symbols.started": "⭘", // Started symbol
+  "todo.symbols.started": "⇶", // Started symbol
   "todo.symbols.info": "→", // Info symbol
   "todo.symbols.unknown": "⁉", // Unknown symbol
   "todo.symbols.important": "‼", // Important/Urgent symbol
@@ -147,7 +149,7 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.statistics.statusbar.command": "", // Command to execute on click
   "todo.statistics.statusbar.priority": -1, // The priority of this item. Higher value means the item should be shown more to the left
   "todo.statistics.statusbar.text": "$(check) [finished]/[all] ([percentage]%)", // Template used for rendering the text
-  "todo.statistics.statusbar.tooltip": "[pending] Pending - [done] Done - [cancelled] Cancelled", // Template used for rendering the tooltip
+  "todo.statistics.statusbar.tooltip": "[pending] Pending - [important] Important - [doing] Doing - [done] Done - [cancelled] Cancelled - [unknown] Unknown ([info] Info)", // Template used for rendering the tooltip
   "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(TODO|FIXME|FIX|BUG|UGLY|HACK|NOTE|IDEA|REVIEW|DEBUG|OPTIMIZE)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
   "todo.embedded.regexFlags": "gi", // Regex flags to use
   "todo.embedded.include": ["**/*"], // Globs to use for including files

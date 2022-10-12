@@ -34,7 +34,7 @@ class StatisticsTokens {
 
   @memoize
   get all () {
-    return this.pending + this.doing + this.finished + this.info + this.unknown + this.important;
+    return this.pending + this.doing + this.finished + this.unknown + this.important;
   }
 
   @memoize
