@@ -3,6 +3,7 @@
 
 import * as vscode from 'vscode';
 import Utils from '../../utils';
+import * as path from 'path';
 
 /* ITEM */
 
@@ -16,7 +17,11 @@ class Item extends vscode.TreeItem {
     super ( label, collapsibleState );
 
     this.obj = obj;
-
+    if (this.label.match(/@thisweek/)) {
+      this.iconPath = Utils.view.getIcon("thisweek");
+    } else if (this.label.match(/@today/)) {
+      this.iconPath = Utils.view.getIcon("today");
+    }
   }
 
   setTypeIcon ( type ) {

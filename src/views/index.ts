@@ -3,7 +3,8 @@
 
 import Embedded from './embedded';
 import Files from './files';
+import Focus from './focus';
 
 /* EXPORT */
 
-export default [Files, Embedded];
+export default [Focus, Files, Embedded];
