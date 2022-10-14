@@ -31,6 +31,14 @@ const View = {
 
   icons: {},
 
+  getIcon(symbol) {
+    if (symbol == 'thisweek') {
+        return vscode.Uri.file(__dirname + "/../resources/icons/schedule-white-18dp.svg");
+    } else if (symbol == 'today') {      
+        return vscode.Uri.file(__dirname + "/../resources/icons/star-white-18dp.svg");
+    }
+  },
+
   getTypeIcon ( type ) { //TODO: Add support for light/dark colors
 
     if ( View.icons[type] ) return View.icons[type];
