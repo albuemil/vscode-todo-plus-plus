@@ -1,3 +1,6 @@
+### Version 0.4.0
+- Sort todos either by label or by source line
+
 ### Version 0.3.1
 - Updated the symbols for Started/Working on and Info
 - Update so the Info items are not counted towards the total
