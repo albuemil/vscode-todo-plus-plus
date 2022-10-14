@@ -1,3 +1,6 @@
+### Version 0.5.0
+- add a focus view for @thisweek/@today
+
 ### Version 0.4.0
 - Sort todos either by label or by source line
 

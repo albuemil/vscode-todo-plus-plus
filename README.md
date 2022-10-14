@@ -6,10 +6,14 @@ Based on Fabio Spampinatos work : https://github.com/fabiospampinato/vscode-todo
 My changes :
 
 - changed extension name 
-- **Started**: `o` `O` `⭘` `⭕` `◯` `[o]` `[O]` `[⭘]` `[⭕]` `[◯]` `⇶` `[⇶]` `[=]`
-- **Info**: `-` `→` `⇾` `›` `>` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[>]` `[–]` `[—]` `[≡]`
-- **Unknown**: `⁉` `[?]` `[⁉]`
-- **Important**: `‼` `[!]` `[‼]`
+- new types based on https://github.com/fabiospampinato/vscode-todo-plus/pull/268/files ):
+  - **Started**: `o` `O` `⭘` `⭕` `◯` `[o]` `[O]` `[⭘]` `[⭕]` `[◯]` `⇶` `[⇶]` `[=]`
+  - **Info**: `-` `→` `⇾` `›` `>` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[>]` `[–]` `[—]` `[≡]`
+  - **Unknown**: `⁉` `[?]` `[⁉]`
+  - **Important**: `‼` `[!]` `[‼]`
+- sort lines by line number of label (from https://github.com/fabiospampinato/vscode-todo-plus/pull/311 )
+- add a focus view for @thisweek/@today (from https://github.com/fabiospampinato/vscode-todo-plus/compare/master...clarsen:vscode-todo-plus:master )
+
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/fabiospampinato/vscode-todo-plus/master/resources/logo/logo.png" width="128" alt="Logo">
@@ -169,6 +173,7 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.embedded.view.groupByType": true, // Group embedded todos by type
   "todo.embedded.view.groupByFile": true, // Group embedded todos by file
   "todo.embedded.view.expanded": true, // Start the tree in an expanded state
+  "todo.focus.view.expanded": true, // Start the focus tree in an expanded state
   "todo.embedded.view.icons": true // Show icons next to todos and types"
 }
 ```
