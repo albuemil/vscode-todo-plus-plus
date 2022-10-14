@@ -12,6 +12,7 @@ import ChangesDecorator from './todo/decorators/changes';
 import Utils from './utils';
 import ViewEmbedded from './views/embedded';
 import ViewFiles from './views/files';
+import ViewFocus from './views/focus';
 
 /* ACTIVATE */
 
@@ -51,6 +52,11 @@ const activate = function ( context: vscode.ExtensionContext ) {
 
   vscode.commands.executeCommand ( 'setContext', 'todo-files-expanded', ViewFiles.expanded );
   vscode.commands.executeCommand ( 'setContext', 'todo-files-open-button', true );
+
+  ViewFocus.expanded = config.focus.view.expanded;
+  vscode.commands.executeCommand ( 'setContext', 'todo-focus-expanded', ViewFocus.expanded );
+  vscode.commands.executeCommand ( 'setContext', 'todo-focus-open-button', true );
+
 
   Utils.context = context;
   Utils.folder.initRootsRe ();

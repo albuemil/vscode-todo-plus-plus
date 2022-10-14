@@ -16,7 +16,7 @@ class JS extends Abstract {
 
     const globby = require ( 'globby' ); // Lazy import for performance
 
-    return _.flatten ( await Promise.all ( rootPaths.map ( cwd => globby ( this.include, { cwd, ignore: this.exclude, dot: true, absolute: true } ) ) ) );
+    return _.flatten ( await Promise.all ( rootPaths.map ( cwd => globby ( this.include, { cwd, ignore: this.exclude, dot: true, absolute: true } ) ) ) ) as string[];
 
   }
 
