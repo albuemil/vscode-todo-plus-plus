@@ -3,7 +3,7 @@
   "displayName": "YATD+",
   "description": "Yet Another Manage todo lists with ease. Powerful, easy to use and customizable. Based on fabiospampinato!s work",
   "icon": "resources/logo/logo-128x128.png",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "albuemil",
@@ -213,6 +213,82 @@
           "description": "Tag color",
           "default": "#e6db74"
         },
+        "todo.colors.headers.background": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Header' background colors",
+          "default": [
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+          ]
+        },
+        "todo.colors.headers.foreground": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Header' foreground colors",
+          "default": [
+            "#aaedff",
+            "#91e8ff",
+            "#64dfff",
+            "#00d4ff",
+            "#00aad3",
+            "#0082a9",
+            "#00688f",
+            "#014c73",
+            "#01375d",
+            "#01284e"
+          ]
+        },
+        "todo.colors.titles.background": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Title' background colors",
+          "default": [
+            "#aaedff",
+            "#91e8ff",
+            "#64dfff",
+            "#00d4ff",
+            "#00aad3",
+            "#0082a9",
+            "#00688f",
+            "#014c73",
+            "#01375d",
+            "#01284e"
+          ]
+        },
+        "todo.colors.titles.foreground": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Title' foreground colors",
+          "default": [
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+          ]
+        },
         "todo.colors.tags.background": {
           "type": "array",
           "items": {
@@ -291,6 +367,28 @@
             "projectStatistics": {
               "type": "string"
             },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "array"
+                },
+                "foreground": {
+                  "type": "array"
+                }
+              }
+            },
+            "titles": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "array"
+                },
+                "foreground": {
+                  "type": "array"
+                }
+              }
+            },
             "tag": {
               "type": "string"
             },
@@ -344,6 +442,28 @@
             },
             "projectStatistics": {
               "type": "string"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "array"
+                },
+                "foreground": {
+                  "type": "array"
+                }
+              }
+            },
+            "titles": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "array"
+                },
+                "foreground": {
+                  "type": "array"
+                }
+              }
             },
             "tag": {
               "type": "string"
@@ -679,7 +799,10 @@
         },
         "todo.embedded.view.sort": {
           "type": "string",
-          "enum": ["line", "label"],
+          "enum": [
+            "line",
+            "label"
+          ],
           "description": "Sort todos either by label or by source line",
           "default": "line"
         },
@@ -1178,8 +1301,8 @@
     },
     "submenus": [
       {
-          "id": "todo.editor.context",
-          "label": "Todo Task"
+        "id": "todo.editor.context",
+        "label": "Todo Task"
       }
     ]
   },

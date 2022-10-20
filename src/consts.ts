@@ -29,6 +29,14 @@ const Consts = {
         comment: _.get ( config, `${root}.comment` ),
         project: _.get ( config, `${root}.project` ),
         projectStatistics: _.get ( config, `${root}.projectStatistics` ),
+        headers: {
+          background: _.get ( config, `${root}.headers.background`, [] ),
+          foreground: _.get ( config, `${root}.headers.foreground`, [] )
+        },
+        titles: {
+          background: _.get ( config, `${root}.titles.background`, [] ),
+          foreground: _.get ( config, `${root}.titles.foreground`, [] )
+        },
         tag: _.get ( config, `${root}.tag` ),
         tags: {
           background: _.get ( config, `${root}.tags.background`, [] ),
@@ -74,10 +82,10 @@ const Consts = {
         todoUnknown: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[⁉]|\[[⁉?]+\])\s[^\n]*)))/gm,
         todoImportant: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[‼]|\[[‼!]+\])\s[^\n]*)))/gm,
         todoEmbedded: new RegExp ( _.get ( config, 'embedded.regex' ), _.get ( config, 'embedded.regexFlags' ) ),
-        project: /^(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s[^\n]*)[^\S\n]*(.+:)[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$)/gm,
+        project: /^(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|([#=]+)|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s[^\n]*)[^\S\n]*(.+:)[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$)/gm,
         projectParts: /(\s*)(.+):(.*)/,
-        archive: new RegExp ( `^(?![^\\S\\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|\\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\\])\\s[^\\n]*)([^\\S\\n]*${_.escapeRegExp ( archiveName )}:.*$)`, 'gm' ),
-        comment: /^(?!\s*$)(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\])\s[^\n]*)(?![^\S\n]*.+:[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$))[^\S\n]*([^\n]+)/gm,
+        archive: new RegExp ( `^(?![^\\S\\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|([#=]+)|\\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\\])\\s[^\\n]*)([^\\S\\n]*${_.escapeRegExp ( archiveName )}:.*$)`, 'gm' ),
+        comment: /^(?!\s*$)(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|([#=]+)|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\]|^\s*#\s\S)\s[^\n]*)(?![^\S\n]*.+:[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$))[^\S\n]*([^\n]+)/gm,
         tag: /(?:^|[^a-zA-Z0-9`])(@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)/gm,
         tagSpecial: new RegExp ( `(?:^|[^a-zA-Z0-9])@(${tagsNames.map ( n => _.escapeRegExp ( n ) ).join ( '|' )})(?:(?:\\([^)]*\\))|(?![a-zA-Z]))`, 'gm' ),
         tagSpecialNormal: new RegExp ( `(?:^|[^a-zA-Z0-9])(?:${tagsNames.map ( n => `(@${_.escapeRegExp ( n )}(?:(?:\\([^)]*\\))|(?![a-zA-Z])))` ).join ( '|' )}|(@[^\\s*~(]+(?::\/\/[^\\s*~(:]+)?(?:(?:\\([^)]*\\))|(?![a-zA-Z]))))`, 'gm' ),
@@ -91,7 +99,16 @@ const Consts = {
         formattedCode: /(?:^|[^a-zA-Z0-9])(`[^\n`]*`)(?![a-zA-Z])/gm,
         formattedBold: /(?:^|[^a-zA-Z0-9])(\*[^\n*]+\*)(?![a-zA-Z])/gm,
         formattedItalic: /(?:^|[^a-zA-Z0-9])(_[^\n_]+_)(?![a-zA-Z])/gm,
-        formattedStrikethrough: /(?:^|[^a-zA-Z0-9])(~[^\n~]+~)(?![a-zA-Z])/gm
+        formattedStrikethrough: /(?:^|[^a-zA-Z0-9])(~[^\n~]+~)(?![a-zA-Z])/gm,
+        // # header entries
+        header: /^[^\S\n]*((?!--|––|——)(?:(?:(?:#+)\s[^\n]*)))/gm,
+        headerParts: /^(\s*)#(.+)/,
+        // = title entries
+        title: /^[^\S\n]*((?!--|––|——)(?:(?:(?:=+)\s[^\n]*)))/gm,
+        titleParts: /^(\s*)=(.+)/,
+        // filters for getting the symbols
+        projectHeaderTitle: /^(\s*)(.+:|[#=]+.+)/gm,
+        projectHeaderTitleParts: /(\s*)((.+)(:)|([#=]+)(.+))(.*)/,
       }
     };
 

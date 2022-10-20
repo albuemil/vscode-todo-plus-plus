@@ -5,7 +5,7 @@ Based on Fabio Spampinatos work : https://github.com/fabiospampinato/vscode-todo
 
 My changes :
 
-- changed extension name 
+- changed extension name
 - new types based on https://github.com/fabiospampinato/vscode-todo-plus/pull/268/files ):
   - **Started**: `o` `O` `⭘` `⭕` `◯` `[o]` `[O]` `[⭘]` `[⭕]` `[◯]` `⇶` `[⇶]` `[=]`
   - **Info**: `-` `→` `⇾` `›` `>` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[>]` `[–]` `[—]` `[≡]`
@@ -13,6 +13,11 @@ My changes :
   - **Important**: `‼` `[!]` `[‼]`
 - sort lines by line number of label (from https://github.com/fabiospampinato/vscode-todo-plus/pull/311 )
 - add a focus view for @thisweek/@today (from https://github.com/fabiospampinato/vscode-todo-plus/compare/master...clarsen:vscode-todo-plus:master )
+- headers (10 levels) similar to how the Markdown headers work
+- titles (10 levels) similar to how the Markdown headers work, except we use the "=" character
+
+
+---
 
 
 <p align="center">
@@ -120,6 +125,10 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.colors.types": { "TODO": "#ffcc00", "FIXME": "#cc0000" ... }, // Object mapping todo types to their color
   "todo.colors.dark": { /* "done": "white", ... */ }, // Colors for dark themes
   "todo.colors.light": { /* "done": "black", ... */ }, // Colors for light themes
+  "todo.colors.headers.background": ["#000000", "#000000","#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"], // Colors for header background
+  "todo.colors.headers.foreground": ["#aaedff", "#91e8ff", "#64dfff", "#00d4ff", "#00aad3", "#0082a9", "#00688f", "#014c73", "#01375d", "#01284e"], // Colors for header foreground
+  "todo.colors.titles.background": [["#aaedff", "#91e8ff", "#64dfff", "#00d4ff", "#00aad3", "#0082a9", "#00688f", "#014c73", "#01375d", "#01284e"], // Colors for title background
+  "todo.colors.titles.foreground": "#000000", "#000000","#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"], // Colors for title foreground
   "todo.tags.names": ["critical", "high", "low", "today"], // Special tags' names
   "todo.tags.namesInference": true, // Infer commonly used tags' names
   "todo.archive.name": "Archive", // Name of the special "Archive" section

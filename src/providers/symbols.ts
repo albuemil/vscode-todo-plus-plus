@@ -14,21 +14,25 @@ class Symbols implements vscode.DocumentSymbolProvider {
   provideDocumentSymbols ( textDocument: vscode.TextDocument ) {
 
     const doc = new Document ( textDocument ),
-          projects = doc.getProjects (),
-          projectsDatas = [],
+          entries = doc.getProjectsHeadersTitles (),
+          dataTree = [],
           symbols = [];
 
-    projects.forEach ( project => {
+    entries.forEach ( entry => {
 
       /* SYMBOL */
 
-      const parts = project.line.text.match ( Consts.regexes.projectParts ),
-            level = Utils.ast.getLevel ( textDocument, parts[1] ),
-            name = _.trim ( parts[2] ),
-            selectionRange = project.range,
+      const parts = entry.line.text.match ( Consts.regexes.projectHeaderTitleParts );
+
+      const level = Utils.ast.getLevel ( textDocument, parts[1] ),
+            selectionRange = entry.range,
             startLine = selectionRange.start.line,
             startCharacter = selectionRange.start.character;
 
+      var name = _.trim ( parts[6] );
+      if (!name) {
+        name = _.trim ( parts[3] );
+      }
       let endLine = startLine;
 
       Utils.ast.walkDown ( doc.textDocument, startLine, true, false, ({ startLevel, level, line }) => {
@@ -36,15 +40,30 @@ class Symbols implements vscode.DocumentSymbolProvider {
         endLine = line.lineNumber;
       });
 
+      // the default symbol
+      var symbolKind = vscode.SymbolKind.Field;
+
+      if (parts[5]) {
+        
+        // the symbol for Headers
+        if (parts[5].includes("#")) {
+          symbolKind = vscode.SymbolKind.Number
+        }
+        // the symbol for Titles
+        else if (parts[5].includes("=")) {
+          symbolKind = vscode.SymbolKind.Constant
+        }
+      }
+
       const endCharacter = doc.textDocument.lineAt ( endLine ).range.end.character,
             fullRange = new vscode.Range ( startLine, startCharacter, endLine, endCharacter ),
-            symbol = new vscode.DocumentSymbol ( name, undefined, vscode.SymbolKind.Field, fullRange, selectionRange );
+            symbol = new vscode.DocumentSymbol ( name, undefined, symbolKind, fullRange, selectionRange );
 
-      projectsDatas.push ({ level, name, symbol });
+      dataTree.push ({ level, name, symbol });
 
       /* PARENT */
 
-      const parentData = _.findLast ( projectsDatas, data => data.level < level ) || {},
+      const parentData = _.findLast ( dataTree, data => data.level < level ) || {},
             { symbol: parentSymbol } = parentData;
 
       if ( parentSymbol ) {
