@@ -40,12 +40,16 @@ class Symbols implements vscode.DocumentSymbolProvider {
         endLine = line.lineNumber;
       });
 
+      // the default symbol
       var symbolKind = vscode.SymbolKind.Field;
 
       if (parts[5]) {
+        
+        // the symbol for Headers
         if (parts[5].includes("#")) {
           symbolKind = vscode.SymbolKind.Number
         }
+        // the symbol for Titles
         else if (parts[5].includes("=")) {
           symbolKind = vscode.SymbolKind.Constant
         }

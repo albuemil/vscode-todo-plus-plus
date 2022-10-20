@@ -7,8 +7,6 @@ import Line from "./line";
 
 /* DECORATION TYPES */
 
-// TODO : create HEADER entries for each level (up to 6), look at tags
-
 const HEADERS =Array(10).fill(1).map ( ( name, index ) => vscode.window.createTextEditorDecorationType ({
     backgroundColor: Consts.colors.headers.background[index],
     color: Consts.colors.headers.foreground[index],
@@ -25,8 +23,6 @@ const HEADERS =Array(10).fill(1).map ( ( name, index ) => vscode.window.createTe
   }));
 
   /* HEADER */
-
-// TODO : set the HEADER according to the line content (how many # are there), look at tags
 
 class Header extends Line {
   TYPES = [...HEADERS];
