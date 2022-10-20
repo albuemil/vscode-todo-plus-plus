@@ -6,7 +6,8 @@ import stringMatches from 'string-matches';
 import * as vscode from 'vscode';
 import Consts from '../consts';
 import Utils from '../utils';
-import {Line, Archive, Comment, Formatted, Project, Tag, Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant} from './items';
+import {Line, Archive, Comment, Formatted, Project, Tag, Header, Title,
+  Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant} from './items';
 
 /* DOCUMENT */
 
@@ -42,7 +43,9 @@ class Document {
 
   /* GET */
 
-  getItems ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox | typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown | typeof TodoImportant, regex: RegExp ) {
+  getItems ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
+    typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown |
+    typeof TodoImportant | typeof Header, regex: RegExp ) {
 
     const matchText = _.isString ( this.text ) ? this.text : this.textDocument.getText (),
           matches = stringMatches ( matchText, regex );
@@ -53,7 +56,9 @@ class Document {
 
   }
 
-  getItemAt ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox | typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown | typeof TodoImportant, lineNumber: number, checkValidity = true ) {
+  getItemAt ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
+    typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown |
+    typeof TodoImportant | typeof Header, lineNumber: number, checkValidity = true ) {
 
     const line = this.textDocument.lineAt ( lineNumber );
 
@@ -150,7 +155,7 @@ class Document {
   getTodosStartedAt ( lineNumber: number, checkValidity? ) {
 
     return this.getItemAt ( TodoStarted, lineNumber, checkValidity );
-    
+
   }
 
   getTodosInfo () {
@@ -204,6 +209,24 @@ class Document {
   getTodoFinishedAt ( lineNumber: number, checkValidity? ) {
 
     return this.getItemAt ( TodoFinished, lineNumber, checkValidity );
+
+  }
+
+  getHeaders () {
+
+    return this.getItems ( Header, Consts.regexes.header );
+
+  }
+
+  getTitles () {
+
+    return this.getItems ( Title, Consts.regexes.title );
+
+  }
+
+  getProjectsHeadersTitles () {
+
+    return this.getItems ( Project, Consts.regexes.projectHeaderTitle );
 
   }
 

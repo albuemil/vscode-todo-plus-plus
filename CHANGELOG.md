@@ -1,3 +1,6 @@
+### Version 0.6.0
+- added Header and Title support
+
 ### Version 0.5.0
 - add a focus view for @thisweek/@today
 
