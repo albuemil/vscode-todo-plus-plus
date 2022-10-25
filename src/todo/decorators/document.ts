@@ -19,6 +19,7 @@ import TodoUnknown from './todo_unknown';
 import TodoImportant from './todo_important';
 import Header from './header';
 import Title from './title';
+import Important from './important';
 
 /* DOCUMENTS LINES CACHE */
 
@@ -178,7 +179,8 @@ const Document = {
       todosUnknown: doc.getTodosUnknown (),
       todosImportant: doc.getTodosImportant (),
       headers: doc.getHeaders (),
-      titles: doc.getTitles ()
+      titles: doc.getTitles (),
+      importants: doc.getImportants ()
     };
 
   },
@@ -197,7 +199,8 @@ const Document = {
       new TodoUnknown ().getDecorations ( items.todosUnknown ),
       new TodoImportant ().getDecorations ( items.todosImportant ),
       new Header ().getDecorations ( items.headers ),
-      new Title ().getDecorations ( items.titles )
+      new Title ().getDecorations ( items.titles ),
+      new Important ().getDecorations ( items.importants )
     );
 
   }

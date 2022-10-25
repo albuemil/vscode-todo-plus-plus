@@ -53,6 +53,10 @@ class Symbols implements vscode.DocumentSymbolProvider {
         else if (parts[5].includes("=")) {
           symbolKind = vscode.SymbolKind.Constant
         }
+        // the symbol for Important entries
+        else if (parts[5].includes("!") || parts[5].includes("‼")) {
+          symbolKind = vscode.SymbolKind.Event
+        }
       }
 
       const endCharacter = doc.textDocument.lineAt ( endLine ).range.end.character,

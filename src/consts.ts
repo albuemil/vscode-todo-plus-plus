@@ -37,6 +37,10 @@ const Consts = {
           background: _.get ( config, `${root}.titles.background`, [] ),
           foreground: _.get ( config, `${root}.titles.foreground`, [] )
         },
+        importants: {
+          background: _.get ( config, `${root}.importants.background`, [] ),
+          foreground: _.get ( config, `${root}.importants.foreground`, [] )
+        },
         tag: _.get ( config, `${root}.tag` ),
         tags: {
           background: _.get ( config, `${root}.tags.background`, [] ),
@@ -71,21 +75,21 @@ const Consts = {
       regexes: {
         impossible: /(?=a)b/gm,
         empty: /^\s*$/,
-        todo: /^[^\S\n]*((?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s[^\n]*)/gm,
-        todoSymbol: /^[^\S\n]*(?!--|––|——)([-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s/,
-        todoBox: /^[^\S\n]*((?!--|––|——)(?:[-❍❑■⬜□☐▪▫‼⁉oO⭘⭕◯⇶]|\[[ ‼⁉!?]?\])\s(?![^\n]*[^a-zA-Z0-9]@(?:done|cancelled)(?:(?:\([^)]*\))|(?![a-zA-Z])))[^\n]*)/gm,
+        todo: /^[^\S\n]*((?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯⁉]|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s[^\n]*)/gm,
+        todoSymbol: /^[^\S\n]*(?!--|––|——)([-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯⁉]|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s/,
+        todoBox: /^[^\S\n]*((?!--|––|——)(?:[-❍❑■⬜□☐▪▫⁉oO⭘⭕◯⇶]|\[[ ‼⁉!?]?\])\s(?![^\n]*[^a-zA-Z0-9]@(?:done|cancelled)(?:(?:\([^)]*\))|(?![a-zA-Z])))[^\n]*)/gm,
         todoBoxStarted: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[oO⭘⭕◯⇶]|\[[oO⭘⭕◯⇶=]\])\s[^\n]*)|(?:(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶]|\[ ?\])\s[^\n]*[^a-zA-Z0-9]@started(?:(?:\([^)]*\))|(?![a-zA-Z]))[^\n]*)))/gm,
         todoDone: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[✔✓☑+]|\[[xX+]\])\s[^\n]*)|(?:(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶]|\[ ?\])\s[^\n]*[^a-zA-Z0-9]@done(?:(?:\([^)]*\))|(?![a-zA-Z]))[^\n]*)))/gm,
         todoCancelled: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[✘xX]|\[-\])\s[^\n]*)|(?:(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶]|\[ ?\])\s[^\n]*[^a-zA-Z0-9]@cancelled(?:(?:\([^)]*\))|(?![a-zA-Z]))[^\n]*)))/gm,
         todoFinished:  /^[^\S\n]*((?!--|––|——)(?:(?:(?:[✔✓☑+✘xX]|\[[xX+-]\])\s[^\n]*)|(?:(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶]|\[ ?\])\s[^\n]*[^a-zA-Z0-9]@(?:done|cancelled)(?:(?:\([^)]*\))|(?![a-zA-Z]))[^\n]*)))/gm,
         todoInfo: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[-–—≡→›>⇾]|\[[–—≡→›>⇾\.]+\])\s[^\n]*)))/gm,
         todoUnknown: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[⁉]|\[[⁉?]+\])\s[^\n]*)))/gm,
-        todoImportant: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[‼]|\[[‼!]+\])\s[^\n]*)))/gm,
+        todoImportant: /^[^\S\n]*((?!--|––|——)(?:(?:(?:\[[‼!]+\])\s[^\n]*)))/gm,
         todoEmbedded: new RegExp ( _.get ( config, 'embedded.regex' ), _.get ( config, 'embedded.regexFlags' ) ),
-        project: /^(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|([#=]+)|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s[^\n]*)[^\S\n]*(.+:)[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$)/gm,
+        project: /^(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯⁉]|([#=!‼]+)|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s[^\n]*)[^\S\n]*(.+:)[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$)/gm,
         projectParts: /(\s*)(.+):(.*)/,
-        archive: new RegExp ( `^(?![^\\S\\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|([#=]+)|\\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\\])\\s[^\\n]*)([^\\S\\n]*${_.escapeRegExp ( archiveName )}:.*$)`, 'gm' ),
-        comment: /^(?!\s*$)(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯‼⁉]|([#=]+)|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\]|^\s*#\s\S)\s[^\n]*)(?![^\S\n]*.+:[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$))[^\S\n]*([^\n]+)/gm,
+        archive: new RegExp ( `^(?![^\\S\\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯⁉]|([#=!‼]+)|\\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\\])\\s[^\\n]*)([^\\S\\n]*${_.escapeRegExp ( archiveName )}:.*$)`, 'gm' ),
+        comment: /^(?!\s*$)(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯⁉]|([#=!‼]+)|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›⇾⇶\.!]?\]|^\s*#\s\S)\s[^\n]*)(?![^\S\n]*.+:[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$))[^\S\n]*([^\n]+)/gm,
         tag: /(?:^|[^a-zA-Z0-9`])(@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)/gm,
         tagSpecial: new RegExp ( `(?:^|[^a-zA-Z0-9])@(${tagsNames.map ( n => _.escapeRegExp ( n ) ).join ( '|' )})(?:(?:\\([^)]*\\))|(?![a-zA-Z]))`, 'gm' ),
         tagSpecialNormal: new RegExp ( `(?:^|[^a-zA-Z0-9])(?:${tagsNames.map ( n => `(@${_.escapeRegExp ( n )}(?:(?:\\([^)]*\\))|(?![a-zA-Z])))` ).join ( '|' )}|(@[^\\s*~(]+(?::\/\/[^\\s*~(:]+)?(?:(?:\\([^)]*\\))|(?![a-zA-Z]))))`, 'gm' ),
@@ -102,13 +106,13 @@ const Consts = {
         formattedStrikethrough: /(?:^|[^a-zA-Z0-9])(~[^\n~]+~)(?![a-zA-Z])/gm,
         // # header entries
         header: /^[^\S\n]*((?!--|––|——)(?:(?:(?:#+)\s[^\n]*)))/gm,
-        headerParts: /^(\s*)#(.+)/,
         // = title entries
         title: /^[^\S\n]*((?!--|––|——)(?:(?:(?:=+)\s[^\n]*)))/gm,
-        titleParts: /^(\s*)=(.+)/,
+        // ! important entries
+        important: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[!‼]+)\s[^\n]*)))/gm,
         // filters for getting the symbols
-        projectHeaderTitle: /^(\s*)(.+:|[#=]+.+)/gm,
-        projectHeaderTitleParts: /(\s*)((.+)(:)|([#=]+)(.+))(.*)/,
+        projectHeaderTitle: /^(\s*)(.+:|[#=!‼]+.+)/gm,
+        projectHeaderTitleParts: /(\s*)((.+)(:)|([#=!‼]+)(.+))(.*)/,
       }
     };
 

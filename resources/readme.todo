@@ -6,6 +6,24 @@ Projects:
   Nested:
     ☐ You can nest projects inside each other and fold them
 
+# Header
+## supports
+### multi
+#### level
+##### coloring
+
+= Titles
+== also
+=== support
+==== multi level
+===== coloring
+
+!!!!! Very
+!!!! important
+!!! titles
+!! are also
+! colored
+
 Todos:
   You can write plain text notes/descriptions wherever you want
   New:

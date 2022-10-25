@@ -3,7 +3,7 @@
   "displayName": "YATD+",
   "description": "Yet Another Manage todo lists with ease. Powerful, easy to use and customizable. Based on fabiospampinato!s work",
   "icon": "resources/logo/logo-128x128.png",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "albuemil",
@@ -151,7 +151,7 @@
         "todo.symbols.important": {
           "type": "string",
           "description": "Todo important/urgent string",
-          "default": "‼"
+          "default": "[‼]"
         },
         "todo.colors.done": {
           "type": "string",
@@ -287,6 +287,34 @@
             "#000000",
             "#000000",
             "#000000"
+          ]
+        },
+        "todo.colors.importants.background": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Important' background colors",
+          "default": [
+            "#FDC0B3",
+            "#FBA492",
+            "#FE856B",
+            "#FF5D3B",
+            "#FF2D00"
+          ]
+        },
+        "todo.colors.importants.foreground": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Important' foreground colors",
+          "default": [
+            "#000000",
+            "#000000",
+            "#FFE0F3",
+            "#FFE0F3",
+            "#FFE0F3"
           ]
         },
         "todo.colors.tags.background": {
@@ -868,7 +896,7 @@
       },
       {
         "command": "todo.toggleImportant",
-        "title": "Todo: Toggle Important/Urgent : ‼"
+        "title": "Todo: Toggle Important/Urgent : [‼]"
       },
       {
         "command": "todo.toggleTimer",
@@ -992,7 +1020,7 @@
       },
       {
         "command": "todo.editorToggleImportant",
-        "title": "‼ Toggle Important"
+        "title": "[‼] Toggle Important"
       },
       {
         "command": "todo.editorToggleUnknown",
