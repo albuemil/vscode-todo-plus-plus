@@ -29,17 +29,19 @@ const Consts = {
         comment: _.get(config, `${root}.comment`),
         project: _.get(config, `${root}.project`),
         projectStatistics: _.get(config, `${root}.projectStatistics`),
-        headers: {
-          background: _.get(config, `${root}.headers.background`, []),
-          foreground: _.get(config, `${root}.headers.foreground`, [])
-        },
-        titles: {
-          background: _.get(config, `${root}.titles.background`, []),
-          foreground: _.get(config, `${root}.titles.foreground`, [])
-        },
-        importants: {
-          background: _.get(config, `${root}.importants.background`, []),
-          foreground: _.get(config, `${root}.importants.foreground`, [])
+        headings: {
+          header: {
+            background: _.get(config, `${root}.headings.header.background`, []),
+            foreground: _.get(config, `${root}.headings.header.foreground`, [])
+          },
+          title: {
+            background: _.get(config, `${root}.headings.title.background`, []),
+            foreground: _.get(config, `${root}.headings.title.foreground`, [])
+          },
+          important: {
+            background: _.get(config, `${root}.headings.important.background`, []),
+            foreground: _.get(config, `${root}.headings.important.foreground`, [])
+          },
         },
         tag: _.get(config, `${root}.tag`),
         tags: {
@@ -105,14 +107,14 @@ const Consts = {
         formattedItalic: /(?:^|[^a-zA-Z0-9])(_[^\n_]+_)(?![a-zA-Z])/gm,
         formattedStrikethrough: /(?:^|[^a-zA-Z0-9])(~[^\n~]+~)(?![a-zA-Z])/gm,
         // # header entries
-        header: /^[^\S\n]*((?!--|––|——)(?:(?:(?:#+)\s[^\n]*)))/gm,
+        headingHeader: /^[^\S\n]*((?!--|––|——)(?:(?:(?:#+)\s[^\n]*)))/gm,
         // = title entries
-        title: /^[^\S\n]*((?!--|––|——)(?:(?:(?:=+)\s[^\n]*)))/gm,
+        headingTitle: /^[^\S\n]*((?!--|––|——)(?:(?:(?:=+)\s[^\n]*)))/gm,
         // ! important entries
-        important: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[!‼]+)\s[^\n]*)))/gm,
+        headingImportant: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[!‼]+)\s[^\n]*)))/gm,
         // filters for getting the symbols
-        projectHeaderTitle: /^(\s*)(.+:|[#=!‼]+.+)/gm,
-        projectHeaderTitleParts: /(\s*)((.+)(:)|([#=!‼]+)(.+))(.*)/,
+        headings: /^(\s*)(.+:|[#=!‼]+.+)/gm,
+        headingParts: /(\s*)((.+)(:)|([#=!‼]+)(.+))(.*)/,
       }
     };
 

@@ -5,13 +5,13 @@ import Consts from '../../consts';
 import Item from './item';
 import Todo from './todo';
 
-/* TITLE */
+/* HEADING - TITLE */
 
-class Title extends Todo {
+class HeadingTitle extends Todo {
 
   static is(str: string) {
 
-    return Item.is(str, Consts.regexes.title);
+    return Item.is(str, Consts.regexes.headingTitle);
 
   }
 
@@ -19,4 +19,4 @@ class Title extends Todo {
 
 /* EXPORT */
 
-export default Title;
+export default HeadingTitle;

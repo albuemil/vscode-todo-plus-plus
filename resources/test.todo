@@ -92,3 +92,13 @@ TaskPaper Compatibility:
   - Cancelled @cancelled
   - Cancelled @cancelled(17-11-03 20:10)
   - Cancelled @cancellednot
+
+Headings and projects can be combined, look at the symbols at the top as you follow the following lines
+# header
+  project:
+    ! important entry
+        = title
+          another project:
+            #### header level 4
+              === title level 3
+                !!!!! very important entry

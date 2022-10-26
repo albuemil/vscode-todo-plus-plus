@@ -1,3 +1,6 @@
+### Version 0.6.2
+- moved the Titles, Headers and Important titles under the Headings group, easier to manage
+
 ### Version 0.6.1
 - added Important Title support (!)
 

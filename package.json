@@ -3,7 +3,7 @@
   "displayName": "YATD+",
   "description": "Yet Another Manage todo lists with ease. Powerful, easy to use and customizable. Based on fabiospampinato!s work",
   "icon": "resources/logo/logo-128x128.png",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "albuemil",
@@ -213,7 +213,7 @@
           "description": "Tag color",
           "default": "#e6db74"
         },
-        "todo.colors.headers.background": {
+        "todo.colors.headings.header.background": {
           "type": "array",
           "items": {
             "type": "string"
@@ -232,7 +232,7 @@
             "#000000"
           ]
         },
-        "todo.colors.headers.foreground": {
+        "todo.colors.headings.header.foreground": {
           "type": "array",
           "items": {
             "type": "string"
@@ -251,7 +251,7 @@
             "#01284e"
           ]
         },
-        "todo.colors.titles.background": {
+        "todo.colors.headings.title.background": {
           "type": "array",
           "items": {
             "type": "string"
@@ -270,7 +270,7 @@
             "#01284e"
           ]
         },
-        "todo.colors.titles.foreground": {
+        "todo.colors.headings.title.foreground": {
           "type": "array",
           "items": {
             "type": "string"
@@ -289,7 +289,7 @@
             "#000000"
           ]
         },
-        "todo.colors.importants.background": {
+        "todo.colors.headings.important.background": {
           "type": "array",
           "items": {
             "type": "string"
@@ -303,7 +303,7 @@
             "#FF2D00"
           ]
         },
-        "todo.colors.importants.foreground": {
+        "todo.colors.headings.important.foreground": {
           "type": "array",
           "items": {
             "type": "string"
@@ -395,25 +395,41 @@
             "projectStatistics": {
               "type": "string"
             },
-            "headers": {
+            "headings": {
               "type": "object",
               "properties": {
-                "background": {
-                  "type": "array"
+                "header": {
+                  "type": "object",
+                  "properties": {
+                    "background": {
+                      "type": "array"
+                    },
+                    "foreground": {
+                      "type": "array"
+                    }
+                  }
                 },
-                "foreground": {
-                  "type": "array"
-                }
-              }
-            },
-            "titles": {
-              "type": "object",
-              "properties": {
-                "background": {
-                  "type": "array"
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "background": {
+                      "type": "array"
+                    },
+                    "foreground": {
+                      "type": "array"
+                    }
+                  }
                 },
-                "foreground": {
-                  "type": "array"
+                "important": {
+                  "type": "object",
+                  "properties": {
+                    "background": {
+                      "type": "array"
+                    },
+                    "foreground": {
+                      "type": "array"
+                    }
+                  }
                 }
               }
             },
@@ -471,25 +487,41 @@
             "projectStatistics": {
               "type": "string"
             },
-            "headers": {
+            "headings": {
               "type": "object",
               "properties": {
-                "background": {
-                  "type": "array"
+                "header": {
+                  "type": "object",
+                  "properties": {
+                    "background": {
+                      "type": "array"
+                    },
+                    "foreground": {
+                      "type": "array"
+                    }
+                  }
                 },
-                "foreground": {
-                  "type": "array"
-                }
-              }
-            },
-            "titles": {
-              "type": "object",
-              "properties": {
-                "background": {
-                  "type": "array"
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "background": {
+                      "type": "array"
+                    },
+                    "foreground": {
+                      "type": "array"
+                    }
+                  }
                 },
-                "foreground": {
-                  "type": "array"
+                "important": {
+                  "type": "object",
+                  "properties": {
+                    "background": {
+                      "type": "array"
+                    },
+                    "foreground": {
+                      "type": "array"
+                    }
+                  }
                 }
               }
             },

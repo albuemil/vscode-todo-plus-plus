@@ -10,12 +10,13 @@ My changes :
   - **Started**: `o` `O` `⭘` `⭕` `◯` `[o]` `[O]` `[⭘]` `[⭕]` `[◯]` `⇶` `[⇶]` `[=]`
   - **Info**: `-` `→` `⇾` `›` `>` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[>]` `[–]` `[—]` `[≡]`
   - **Unknown**: `⁉` `[?]` `[⁉]`
-  - **Important**: `‼` `[!]` `[‼]`
+  - **Important**: `[!]` `[‼]`
 - sort lines by line number of label (from https://github.com/fabiospampinato/vscode-todo-plus/pull/311 )
 - add a focus view for @thisweek/@today (from https://github.com/fabiospampinato/vscode-todo-plus/compare/master...clarsen:vscode-todo-plus:master )
-- headers (10 levels) similar to how the Markdown headers work
-- titles (10 levels) similar to how the Markdown headers work, except we use the "=" character
-- important entries (titles) (5 levels) similar to how the Markdown headers work, except we use the "!" character
+- headings :
+  - headers, 10 levels, similar to how the Markdown headers work, use the "#" character
+  - titles, 10 levels, same as headers but use the "=" character
+  - important entries, 5 levels, same as headers, use the "!" character
 
 
 ---
