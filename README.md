@@ -15,6 +15,7 @@ My changes :
 - add a focus view for @thisweek/@today (from https://github.com/fabiospampinato/vscode-todo-plus/compare/master...clarsen:vscode-todo-plus:master )
 - headers (10 levels) similar to how the Markdown headers work
 - titles (10 levels) similar to how the Markdown headers work, except we use the "=" character
+- important entries (titles) (5 levels) similar to how the Markdown headers work, except we use the "!" character
 
 
 ---
@@ -37,7 +38,7 @@ Manage todo lists with ease. Powerful, easy to use and customizable. [View the d
   - **Cancelled**: `✘` `x` `X` `[-]`
   - **Info**: `-` `→` `⇾` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[–]` `[—]` `[≡]`
   - **Unknown**: `⁉` `[?]` `[⁉]`
-  - **Important**: `‼` `[!]` `[‼]`
+  - **Important**: `[!]` `[‼]`
 - **Custom colors**: all colors can be customized
 - **Custom special tags**: special tags' names and their colors can be customized
 - **Archive**: you can move finished todos to a special "Archive" section with a shortcut

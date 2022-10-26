@@ -5,13 +5,13 @@ import Consts from '../../consts';
 import Item from './item';
 import Todo from './todo';
 
-/* TODO IMPORTANT */
+/* HEADER */
 
-class TodoImportant extends Todo {
+class Importants extends Todo {
 
   static is(str: string) {
 
-    return Item.is(str, Consts.regexes.todoImportant);
+    return Item.is(str, Consts.regexes.important);
 
   }
 
@@ -19,4 +19,4 @@ class TodoImportant extends Todo {
 
 /* EXPORT */
 
-export default TodoImportant;
+export default Importants;
