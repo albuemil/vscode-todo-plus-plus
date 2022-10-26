@@ -22,9 +22,8 @@ class Symbols implements vscode.DocumentSymbolProvider {
 
       /* SYMBOL */
 
-      const parts = entry.line.text.match(Consts.regexes.projectHeaderTitleParts);
-
-      const level = Utils.ast.getLevel(textDocument, parts[1]),
+      const parts = entry.line.text.match(Consts.regexes.headingParts),
+        level = Utils.ast.getLevel(textDocument, parts[1]),
         selectionRange = entry.range,
         startLine = selectionRange.start.line,
         startCharacter = selectionRange.start.character;
@@ -44,7 +43,6 @@ class Symbols implements vscode.DocumentSymbolProvider {
       var symbolKind = vscode.SymbolKind.Field;
 
       if (parts[5]) {
-
         // the symbol for Headers
         if (parts[5].includes("#")) {
           symbolKind = vscode.SymbolKind.Number

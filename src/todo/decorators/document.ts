@@ -17,9 +17,9 @@ import TodoStarted from './todo_started';
 import TodoInfo from './todo_info';
 import TodoUnknown from './todo_unknown';
 import TodoImportant from './todo_important';
-import Header from './header';
-import Title from './title';
-import Important from './important';
+import HeadingHeader from './heading_header';
+import HeadingTitle from './heading_title';
+import Important from './heading_important';
 
 /* DOCUMENTS LINES CACHE */
 
@@ -27,33 +27,33 @@ const DocumentsLinesCache = {
 
   lines: {},
 
-  get ( textEditor: vscode.TextEditor, lineNr?: number ) {
+  get(textEditor: vscode.TextEditor, lineNr?: number) {
 
     const id = textEditor['id'],
-          lines = DocumentsLinesCache.lines[id];
+      lines = DocumentsLinesCache.lines[id];
 
-    return lines && _.isNumber ( lineNr ) ? lines[lineNr] : lines;
+    return lines && _.isNumber(lineNr) ? lines[lineNr] : lines;
 
   },
 
-  update ( textEditor: vscode.TextEditor ) {
+  update(textEditor: vscode.TextEditor) {
 
     const id = textEditor['id'];
 
-    DocumentsLinesCache.lines[id] = textEditor.document.getText ().split ( '\n' );
+    DocumentsLinesCache.lines[id] = textEditor.document.getText().split('\n');
 
   },
 
-  didChange ( doc: DocumentModule ) { // Check if the document actually changed
+  didChange(doc: DocumentModule) { // Check if the document actually changed
 
-    const prevLines = DocumentsLinesCache.get ( doc.textEditor );
+    const prevLines = DocumentsLinesCache.get(doc.textEditor);
 
-    if ( prevLines ) {
+    if (prevLines) {
 
-      const prevText = prevLines.join ( '\n' ),
-            currText = doc.textDocument.getText ();
+      const prevText = prevLines.join('\n'),
+        currText = doc.textDocument.getText();
 
-      if ( prevText === currText ) return false;
+      if (prevText === currText) return false;
 
     }
 
@@ -69,56 +69,56 @@ const Document = {
 
   /* UPDATE */
 
-  update ( res: vscode.TextEditor | vscode.TextDocument = vscode.window.activeTextEditor, force: boolean = false ) {
+  update(res: vscode.TextEditor | vscode.TextDocument = vscode.window.activeTextEditor, force: boolean = false) {
 
-    const statisticsStatusbar = Config.getKey ( 'statistics.statusbar.enabled' ) !== false,
-          statisticsProjects = Config.getKey ( 'statistics.project.enabled' ) !== false;
+    const statisticsStatusbar = Config.getKey('statistics.statusbar.enabled') !== false,
+      statisticsProjects = Config.getKey('statistics.project.enabled') !== false;
 
-    if ( res ) {
+    if (res) {
 
-      const doc = new DocumentModule ( res );
+      const doc = new DocumentModule(res);
 
-      if ( doc.isSupported () ) {
+      if (doc.isSupported()) {
 
         // if ( !force && !DocumentsLinesCache.didChange ( doc ) ) return; //FIXME: Decorations might get trashed, so we can't skip this work //URL: https://github.com/Microsoft/vscode/issues/50415
 
-        DocumentsLinesCache.update ( doc.textEditor );
+        DocumentsLinesCache.update(doc.textEditor);
 
-        const items = Document.getItems ( doc );
+        const items = Document.getItems(doc);
 
-        if ( statisticsStatusbar || statisticsProjects ) {
-          Utils.statistics.tokens.updateGlobal ( items );
+        if (statisticsStatusbar || statisticsProjects) {
+          Utils.statistics.tokens.updateGlobal(items);
         }
 
-        if ( statisticsProjects ) {
-          Utils.statistics.tokens.updateProjects ( doc.textDocument, items );
+        if (statisticsProjects) {
+          Utils.statistics.tokens.updateProjects(doc.textDocument, items);
         }
 
-        const decorations = Document.getItemsDecorations ( items );
+        const decorations = Document.getItemsDecorations(items);
 
-        decorations.forEach ( ({ type, ranges }) => {
-          doc.textEditor.setDecorations ( type, ranges );
+        decorations.forEach(({ type, ranges }) => {
+          doc.textEditor.setDecorations(type, ranges);
         });
 
-        const StatusbarTimer = require ( '../../statusbars/timer' ).default; // Avoiding a cyclic dependency
+        const StatusbarTimer = require('../../statusbars/timer').default; // Avoiding a cyclic dependency
 
-        StatusbarTimer.update ( doc );
+        StatusbarTimer.update(doc);
 
       }
 
     }
 
-    if ( statisticsStatusbar ) {
+    if (statisticsStatusbar) {
 
-      const StatusbarStatistics = require ( '../../statusbars/statistics' ).default; // Avoiding a cyclic dependency
+      const StatusbarStatistics = require('../../statusbars/statistics').default; // Avoiding a cyclic dependency
 
-      StatusbarStatistics.update ();
+      StatusbarStatistics.update();
 
     }
 
   },
 
-  updateLines ( res: vscode.TextEditor | vscode.TextDocument = vscode.window.activeTextEditor, lineNrs: number[] ) { //URL: https://github.com/Microsoft/vscode/issues/50346
+  updateLines(res: vscode.TextEditor | vscode.TextDocument = vscode.window.activeTextEditor, lineNrs: number[]) { //URL: https://github.com/Microsoft/vscode/issues/50346
 
     // This should optimize these scenarios:
     // 1. No items at all
@@ -126,81 +126,81 @@ const Document = {
     // 3. Same items but both ranging through the entire line
     // 4. Same items but both ranging through the entire line, with some other items before the end
 
-    const doc = new DocumentModule ( res );
+    const doc = new DocumentModule(res);
 
-    if ( !doc.isSupported () ) return;
+    if (!doc.isSupported()) return;
 
-    const prevLines = DocumentsLinesCache.get ( doc.textEditor );
+    const prevLines = DocumentsLinesCache.get(doc.textEditor);
 
-    if ( prevLines && prevLines.length === doc.textDocument.lineCount ) {
+    if (prevLines && prevLines.length === doc.textDocument.lineCount) {
 
-      lineNrs = _.uniq ( lineNrs ); // Multiple cursors on the same line
+      lineNrs = _.uniq(lineNrs); // Multiple cursors on the same line
 
-      const isUnchanged = lineNrs.every ( lineNr => {
+      const isUnchanged = lineNrs.every(lineNr => {
 
         const prevLine = prevLines[lineNr],
-              prevDoc = new DocumentModule ( prevLine ),
-              prevItems = Document.getItems ( prevDoc ) as any, //TSC
-              currLine = doc.textDocument.lineAt ( lineNr ).text,
-              currDoc = new DocumentModule ( currLine ),
-              currItems = Document.getItems ( currDoc ) as any; //TSC
+          prevDoc = new DocumentModule(prevLine),
+          prevItems = Document.getItems(prevDoc) as any, //TSC
+          currLine = doc.textDocument.lineAt(lineNr).text,
+          currDoc = new DocumentModule(currLine),
+          currItems = Document.getItems(currDoc) as any; //TSC
 
-        return _.isEqualWith ( prevItems, currItems, ( prevItem, currItem ) => {
-          if ( prevItem instanceof Item && currItem instanceof Item ) {
-            return ( prevItem.matchRange.start === currItem.matchRange.start && ( prevItem.matchRange.end === currItem.matchRange.end || ( _.trim ( prevItem.match.input ) === _.trim ( prevItem.text ) && ( _.trim ( currItem.match.input ) === _.trim ( currItem.text ) && !_.find ( currItems, items => _.isArray ( items ) && items.find ( item => item !== currItem && _.trim( currItem.text ).endsWith ( item.text ) ) ) ) ) ) ); //TODO: Write it better
+        return _.isEqualWith(prevItems, currItems, (prevItem, currItem) => {
+          if (prevItem instanceof Item && currItem instanceof Item) {
+            return (prevItem.matchRange.start === currItem.matchRange.start && (prevItem.matchRange.end === currItem.matchRange.end || (_.trim(prevItem.match.input) === _.trim(prevItem.text) && (_.trim(currItem.match.input) === _.trim(currItem.text) && !_.find(currItems, items => _.isArray(items) && items.find(item => item !== currItem && _.trim(currItem.text).endsWith(item.text))))))); //TODO: Write it better
           }
         });
 
       });
 
-      if ( isUnchanged ) return;
+      if (isUnchanged) return;
 
     }
 
-    Document.update ( res, true );
+    Document.update(res, true);
 
   },
 
   /* ITEMS */
 
-  getItems ( doc: DocumentModule ) {
+  getItems(doc: DocumentModule) {
 
     return {
-      archive: doc.getArchive (),
-      comments: doc.getComments (),
-      formatted: Config.getKey ( 'formatting.enabled' ) ? doc.getFormatted () : [],
-      projects: doc.getProjects (),
-      tags: doc.getTags (),
-      todosBox: doc.getTodosBox (),
-      todosDone: doc.getTodosDone (),
-      todosCancelled: doc.getTodosCancelled (),
-      todosStarted: doc.getTodosStarted (),
-      todosInfo: doc.getTodosInfo (),
-      todosUnknown: doc.getTodosUnknown (),
-      todosImportant: doc.getTodosImportant (),
-      headers: doc.getHeaders (),
-      titles: doc.getTitles (),
-      importants: doc.getImportants ()
+      archive: doc.getArchive(),
+      comments: doc.getComments(),
+      formatted: Config.getKey('formatting.enabled') ? doc.getFormatted() : [],
+      projects: doc.getProjects(),
+      tags: doc.getTags(),
+      todosBox: doc.getTodosBox(),
+      todosDone: doc.getTodosDone(),
+      todosCancelled: doc.getTodosCancelled(),
+      todosStarted: doc.getTodosStarted(),
+      todosInfo: doc.getTodosInfo(),
+      todosUnknown: doc.getTodosUnknown(),
+      todosImportant: doc.getTodosImportant(),
+      headers: doc.getHeaders(),
+      titles: doc.getTitles(),
+      importants: doc.getImportants()
     };
 
   },
 
-  getItemsDecorations ( items ) {
+  getItemsDecorations(items) {
 
-    return _.concat (
-      new Comment ().getDecorations ( items.comments ),
-      new Formatted ().getDecorations ( items.formatted ),
-      new Tag ().getDecorations ( items.tags ),
-      new Project ().getDecorations ( items.projects ),
-      new TodoDone ().getDecorations ( items.todosDone ),
-      new TodoCancelled ().getDecorations ( items.todosCancelled ),
-      new TodoStarted ().getDecorations ( items.todosStarted ),
-      new TodoInfo ().getDecorations ( items.todosInfo ),
-      new TodoUnknown ().getDecorations ( items.todosUnknown ),
-      new TodoImportant ().getDecorations ( items.todosImportant ),
-      new Header ().getDecorations ( items.headers ),
-      new Title ().getDecorations ( items.titles ),
-      new Important ().getDecorations ( items.importants )
+    return _.concat(
+      new Comment().getDecorations(items.comments),
+      new Formatted().getDecorations(items.formatted),
+      new Tag().getDecorations(items.tags),
+      new Project().getDecorations(items.projects),
+      new TodoDone().getDecorations(items.todosDone),
+      new TodoCancelled().getDecorations(items.todosCancelled),
+      new TodoStarted().getDecorations(items.todosStarted),
+      new TodoInfo().getDecorations(items.todosInfo),
+      new TodoUnknown().getDecorations(items.todosUnknown),
+      new TodoImportant().getDecorations(items.todosImportant),
+      new HeadingHeader().getDecorations(items.headers),
+      new HeadingTitle().getDecorations(items.titles),
+      new Important().getDecorations(items.importants)
     );
 
   }

@@ -6,8 +6,10 @@ import stringMatches from 'string-matches';
 import * as vscode from 'vscode';
 import Consts from '../consts';
 import Utils from '../utils';
-import {Line, Archive, Comment, Formatted, Project, Tag, Header, Title, Important,
-  Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant} from './items';
+import {
+  Line, Archive, Comment, Formatted, Project, Tag, HeadingHeader, HeadingTitle, HeadingImportant,
+  Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant
+} from './items';
 
 /* DOCUMENT */
 
@@ -17,22 +19,22 @@ class Document {
   textDocument?: vscode.TextDocument;
   text?: string;
 
-  constructor ( res: string | vscode.TextEditor | vscode.TextDocument ) {
+  constructor(res: string | vscode.TextEditor | vscode.TextDocument) {
 
-    if ( _.isString ( res ) ) {
+    if (_.isString(res)) {
 
       this.text = res;
 
     } else {
 
-      if ( 'document' in res ) { // => vscode.TextEditor
+      if ('document' in res) { // => vscode.TextEditor
 
         this.textEditor = res as vscode.TextEditor; //TSC
         this.textDocument = this.textEditor.document;
 
       } else { // => vscode.TextDocument
 
-        this.textEditor = vscode.window.visibleTextEditors.find ( te => te.document === res ) || vscode.window.activeTextEditor;
+        this.textEditor = vscode.window.visibleTextEditors.find(te => te.document === res) || vscode.window.activeTextEditor;
         this.textDocument = res as vscode.TextDocument; //TSC
 
       }
@@ -43,205 +45,205 @@ class Document {
 
   /* GET */
 
-  getItems ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
+  getItems(Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
     typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown |
-    typeof TodoImportant | typeof Header | typeof Important, regex: RegExp ) {
+    typeof TodoImportant | typeof HeadingHeader | typeof HeadingImportant, regex: RegExp) {
 
-    const matchText = _.isString ( this.text ) ? this.text : this.textDocument.getText (),
-          matches = stringMatches ( matchText, regex );
+    const matchText = _.isString(this.text) ? this.text : this.textDocument.getText(),
+      matches = stringMatches(matchText, regex);
 
-    return matches.map ( match => {
-      return new Item ( this.textEditor, undefined, match );
+    return matches.map(match => {
+      return new Item(this.textEditor, undefined, match);
     });
 
   }
 
-  getItemAt ( Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
+  getItemAt(Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
     typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown |
-    typeof TodoImportant | typeof Header | typeof Important, lineNumber: number, checkValidity = true ) {
+    typeof TodoImportant | typeof HeadingHeader | typeof HeadingImportant, lineNumber: number, checkValidity = true) {
 
-    const line = this.textDocument.lineAt ( lineNumber );
+    const line = this.textDocument.lineAt(lineNumber);
 
-    if ( checkValidity && !Item.is ( line.text ) ) return;
+    if (checkValidity && !Item.is(line.text)) return;
 
-    return new Item ( this.textEditor, line );
-
-  }
-
-  getLines () {
-
-    return _.range ( this.textDocument.lineCount ).map ( lineNr => this.getLineAt ( lineNr ) );
+    return new Item(this.textEditor, line);
 
   }
 
-  getLineAt ( lineNr: number ) {
+  getLines() {
 
-    return this.getItemAt ( Line, lineNr, false );
-
-  }
-
-  getArchive () {
-
-    return this.getItems ( Archive, Consts.regexes.archive )[0];
+    return _.range(this.textDocument.lineCount).map(lineNr => this.getLineAt(lineNr));
 
   }
 
-  getComments () {
+  getLineAt(lineNr: number) {
 
-    return this.getItems ( Comment, Consts.regexes.comment );
-
-  }
-
-  getCommentAt ( lineNumber: number, checkValidity? ) {
-
-    return this.getItemAt ( Comment, lineNumber, checkValidity );
+    return this.getItemAt(Line, lineNr, false);
 
   }
 
-  getFormatted () {
+  getArchive() {
 
-    return this.getItems ( Formatted, Consts.regexes.formatted );
-
-  }
-
-  getProjects () {
-
-    return this.getItems ( Project, Consts.regexes.project );
+    return this.getItems(Archive, Consts.regexes.archive)[0];
 
   }
 
-  getProjectAt ( lineNumber: number, checkValidity? ) {
+  getComments() {
 
-    return this.getItemAt ( Project, lineNumber, checkValidity );
-
-  }
-
-  getTags () {
-
-    return this.getItems ( Tag, Consts.regexes.tagSpecialNormal );
+    return this.getItems(Comment, Consts.regexes.comment);
 
   }
 
-  getTodos () {
+  getCommentAt(lineNumber: number, checkValidity?) {
 
-    return this.getItems ( Todo, Consts.regexes.todo );
-
-  }
-
-  getTodoAt ( lineNumber: number, checkValidity? ) {
-
-    return this.getItemAt ( Todo, lineNumber, checkValidity );
+    return this.getItemAt(Comment, lineNumber, checkValidity);
 
   }
 
-  getTodosBox () {
+  getFormatted() {
 
-    return this.getItems ( TodoBox, Consts.regexes.todoBox );
-
-  }
-
-  getTodoBoxAt ( lineNumber: number, checkValidity? ) {
-
-    return this.getItemAt ( TodoBox, lineNumber, checkValidity );
+    return this.getItems(Formatted, Consts.regexes.formatted);
 
   }
 
-  getTodosStarted () {
+  getProjects() {
 
-    return this.getItems ( TodoStarted, Consts.regexes.todoBoxStarted );
-
-  }
-
-  getTodosStartedAt ( lineNumber: number, checkValidity? ) {
-
-    return this.getItemAt ( TodoStarted, lineNumber, checkValidity );
+    return this.getItems(Project, Consts.regexes.project);
 
   }
 
-  getTodosInfo () {
+  getProjectAt(lineNumber: number, checkValidity?) {
 
-    return this.getItems ( TodoInfo, Consts.regexes.todoInfo );
-
-  }
-
-  getTodosUnknown () {
-
-    return this.getItems ( TodoUnknown, Consts.regexes.todoUnknown );
+    return this.getItemAt(Project, lineNumber, checkValidity);
 
   }
 
-  getTodosImportant () {
+  getTags() {
 
-    return this.getItems ( TodoImportant, Consts.regexes.todoImportant );
-
-  }
-
-  getTodosDone () {
-
-    return this.getItems ( TodoDone, Consts.regexes.todoDone );
+    return this.getItems(Tag, Consts.regexes.tagSpecialNormal);
 
   }
 
-  getTodoDoneAt ( lineNumber: number, checkValidity? ) {
+  getTodos() {
 
-    return this.getItemAt ( TodoDone, lineNumber, checkValidity );
-
-  }
-
-  getTodosCancelled () {
-
-    return this.getItems ( TodoCancelled, Consts.regexes.todoCancelled );
+    return this.getItems(Todo, Consts.regexes.todo);
 
   }
 
-  getTodoCancelledAt ( lineNumber: number, checkValidity? ) {
+  getTodoAt(lineNumber: number, checkValidity?) {
 
-    return this.getItemAt ( TodoCancelled, lineNumber, checkValidity );
-
-  }
-
-  getTodosFinished () {
-
-    return this.getItems ( TodoFinished, Consts.regexes.todoFinished );
+    return this.getItemAt(Todo, lineNumber, checkValidity);
 
   }
 
-  getTodoFinishedAt ( lineNumber: number, checkValidity? ) {
+  getTodosBox() {
 
-    return this.getItemAt ( TodoFinished, lineNumber, checkValidity );
-
-  }
-
-  getHeaders () {
-
-    return this.getItems ( Header, Consts.regexes.header );
+    return this.getItems(TodoBox, Consts.regexes.todoBox);
 
   }
 
-  getTitles () {
+  getTodoBoxAt(lineNumber: number, checkValidity?) {
 
-    return this.getItems ( Title, Consts.regexes.title );
-
-  }
-
-  getImportants () {
-
-    return this.getItems ( Title, Consts.regexes.important );
+    return this.getItemAt(TodoBox, lineNumber, checkValidity);
 
   }
 
-  getProjectsHeadersTitles () {
+  getTodosStarted() {
 
-    return this.getItems ( Project, Consts.regexes.projectHeaderTitle );
+    return this.getItems(TodoStarted, Consts.regexes.todoBoxStarted);
+
+  }
+
+  getTodosStartedAt(lineNumber: number, checkValidity?) {
+
+    return this.getItemAt(TodoStarted, lineNumber, checkValidity);
+
+  }
+
+  getTodosInfo() {
+
+    return this.getItems(TodoInfo, Consts.regexes.todoInfo);
+
+  }
+
+  getTodosUnknown() {
+
+    return this.getItems(TodoUnknown, Consts.regexes.todoUnknown);
+
+  }
+
+  getTodosImportant() {
+
+    return this.getItems(TodoImportant, Consts.regexes.todoImportant);
+
+  }
+
+  getTodosDone() {
+
+    return this.getItems(TodoDone, Consts.regexes.todoDone);
+
+  }
+
+  getTodoDoneAt(lineNumber: number, checkValidity?) {
+
+    return this.getItemAt(TodoDone, lineNumber, checkValidity);
+
+  }
+
+  getTodosCancelled() {
+
+    return this.getItems(TodoCancelled, Consts.regexes.todoCancelled);
+
+  }
+
+  getTodoCancelledAt(lineNumber: number, checkValidity?) {
+
+    return this.getItemAt(TodoCancelled, lineNumber, checkValidity);
+
+  }
+
+  getTodosFinished() {
+
+    return this.getItems(TodoFinished, Consts.regexes.todoFinished);
+
+  }
+
+  getTodoFinishedAt(lineNumber: number, checkValidity?) {
+
+    return this.getItemAt(TodoFinished, lineNumber, checkValidity);
+
+  }
+
+  getHeaders() {
+
+    return this.getItems(HeadingHeader, Consts.regexes.headingHeader);
+
+  }
+
+  getTitles() {
+
+    return this.getItems(HeadingTitle, Consts.regexes.headingTitle);
+
+  }
+
+  getImportants() {
+
+    return this.getItems(HeadingImportant, Consts.regexes.headingImportant);
+
+  }
+
+  getProjectsHeadersTitles() {
+
+    return this.getItems(Project, Consts.regexes.headings);
 
   }
 
 
   /* IS */
 
-  isSupported () {
+  isSupported() {
 
-    return Utils.editor.isSupported ( this.textEditor );
+    return Utils.editor.isSupported(this.textEditor);
 
   }
 

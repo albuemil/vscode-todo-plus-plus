@@ -5,13 +5,13 @@ import Consts from '../../consts';
 import Item from './item';
 import Todo from './todo';
 
-/* HEADER */
+/* HEADING - IMPORTANT */
 
-class Header extends Todo {
+class HeadingImportant extends Todo {
 
   static is(str: string) {
 
-    return Item.is(str, Consts.regexes.header);
+    return Item.is(str, Consts.regexes.headingImportant);
 
   }
 
@@ -19,4 +19,4 @@ class Header extends Todo {
 
 /* EXPORT */
 
-export default Header;
+export default HeadingImportant;
