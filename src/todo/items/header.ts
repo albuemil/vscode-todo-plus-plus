@@ -9,9 +9,9 @@ import Todo from './todo';
 
 class Header extends Todo {
 
-  static is ( str: string ) {
+  static is(str: string) {
 
-    return Item.is ( str, Consts.regexes.header );
+    return Item.is(str, Consts.regexes.header);
 
   }
 

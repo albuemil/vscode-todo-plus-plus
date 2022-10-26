@@ -23,5 +23,7 @@ import Important from './important';
 
 /* EXPORT */
 
-export {Archive, Comment, Formatted, Item, Line, Project, Tag, Header, Title, Important,
-    Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant};
+export {
+    Archive, Comment, Formatted, Item, Line, Project, Tag, Header, Title, Important,
+    Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant
+};

@@ -11,32 +11,32 @@ import Document from '../todo/document';
 
 class Symbols implements vscode.DocumentSymbolProvider {
 
-  provideDocumentSymbols ( textDocument: vscode.TextDocument ) {
+  provideDocumentSymbols(textDocument: vscode.TextDocument) {
 
-    const doc = new Document ( textDocument ),
-          entries = doc.getProjectsHeadersTitles (),
-          dataTree = [],
-          symbols = [];
+    const doc = new Document(textDocument),
+      entries = doc.getProjectsHeadersTitles(),
+      dataTree = [],
+      symbols = [];
 
-    entries.forEach ( entry => {
+    entries.forEach(entry => {
 
       /* SYMBOL */
 
-      const parts = entry.line.text.match ( Consts.regexes.projectHeaderTitleParts );
+      const parts = entry.line.text.match(Consts.regexes.projectHeaderTitleParts);
 
-      const level = Utils.ast.getLevel ( textDocument, parts[1] ),
-            selectionRange = entry.range,
-            startLine = selectionRange.start.line,
-            startCharacter = selectionRange.start.character;
+      const level = Utils.ast.getLevel(textDocument, parts[1]),
+        selectionRange = entry.range,
+        startLine = selectionRange.start.line,
+        startCharacter = selectionRange.start.character;
 
-      var name = _.trim ( parts[6] );
+      var name = _.trim(parts[6]);
       if (!name) {
-        name = _.trim ( parts[3] );
+        name = _.trim(parts[3]);
       }
       let endLine = startLine;
 
-      Utils.ast.walkDown ( doc.textDocument, startLine, true, false, ({ startLevel, level, line }) => {
-        if ( level <= startLevel ) return false;
+      Utils.ast.walkDown(doc.textDocument, startLine, true, false, ({ startLevel, level, line }) => {
+        if (level <= startLevel) return false;
         endLine = line.lineNumber;
       });
 
@@ -44,7 +44,7 @@ class Symbols implements vscode.DocumentSymbolProvider {
       var symbolKind = vscode.SymbolKind.Field;
 
       if (parts[5]) {
-        
+
         // the symbol for Headers
         if (parts[5].includes("#")) {
           symbolKind = vscode.SymbolKind.Number
@@ -59,24 +59,24 @@ class Symbols implements vscode.DocumentSymbolProvider {
         }
       }
 
-      const endCharacter = doc.textDocument.lineAt ( endLine ).range.end.character,
-            fullRange = new vscode.Range ( startLine, startCharacter, endLine, endCharacter ),
-            symbol = new vscode.DocumentSymbol ( name, undefined, symbolKind, fullRange, selectionRange );
+      const endCharacter = doc.textDocument.lineAt(endLine).range.end.character,
+        fullRange = new vscode.Range(startLine, startCharacter, endLine, endCharacter),
+        symbol = new vscode.DocumentSymbol(name, undefined, symbolKind, fullRange, selectionRange);
 
-      dataTree.push ({ level, name, symbol });
+      dataTree.push({ level, name, symbol });
 
       /* PARENT */
 
-      const parentData = _.findLast ( dataTree, data => data.level < level ) || {},
-            { symbol: parentSymbol } = parentData;
+      const parentData = _.findLast(dataTree, data => data.level < level) || {},
+        { symbol: parentSymbol } = parentData;
 
-      if ( parentSymbol ) {
+      if (parentSymbol) {
 
-        parentSymbol.children.push ( symbol );
+        parentSymbol.children.push(symbol);
 
       } else {
 
-        symbols.push ( symbol );
+        symbols.push(symbol);
 
       }
 

@@ -9,9 +9,9 @@ import Todo from './todo';
 
 class TodoImportant extends Todo {
 
-  static is ( str: string ) {
+  static is(str: string) {
 
-    return Item.is ( str, Consts.regexes.todoImportant );
+    return Item.is(str, Consts.regexes.todoImportant);
 
   }
 
