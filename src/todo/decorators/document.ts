@@ -16,10 +16,10 @@ import TodoCancelled from './todo_cancelled';
 import TodoStarted from './todo_started';
 import TodoInfo from './todo_info';
 import TodoUnknown from './todo_unknown';
-import TodoImportant from './todo_important';
+import TodoUrgent from './todo_urgent';
 import HeadingHeader from './heading_header';
 import HeadingTitle from './heading_title';
-import Important from './heading_important';
+import HeadingImportant from './heading_important';
 
 /* DOCUMENTS LINES CACHE */
 
@@ -177,7 +177,7 @@ const Document = {
       todosStarted: doc.getTodosStarted(),
       todosInfo: doc.getTodosInfo(),
       todosUnknown: doc.getTodosUnknown(),
-      todosImportant: doc.getTodosImportant(),
+      todosUrgent: doc.getTodosUrgent(),
       headers: doc.getHeaders(),
       titles: doc.getTitles(),
       importants: doc.getImportants()
@@ -197,10 +197,10 @@ const Document = {
       new TodoStarted().getDecorations(items.todosStarted),
       new TodoInfo().getDecorations(items.todosInfo),
       new TodoUnknown().getDecorations(items.todosUnknown),
-      new TodoImportant().getDecorations(items.todosImportant),
+      new TodoUrgent().getDecorations(items.todosUrgent),
       new HeadingHeader().getDecorations(items.headers),
       new HeadingTitle().getDecorations(items.titles),
-      new Important().getDecorations(items.importants)
+      new HeadingImportant().getDecorations(items.importants)
     );
 
   }

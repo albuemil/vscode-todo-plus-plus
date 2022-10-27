@@ -8,7 +8,7 @@ import Consts from '../consts';
 import Utils from '../utils';
 import {
   Line, Archive, Comment, Formatted, Project, Tag, HeadingHeader, HeadingTitle, HeadingImportant,
-  Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant
+  Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoUrgent
 } from './items';
 
 /* DOCUMENT */
@@ -47,7 +47,7 @@ class Document {
 
   getItems(Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
     typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown |
-    typeof TodoImportant | typeof HeadingHeader | typeof HeadingImportant, regex: RegExp) {
+    typeof TodoUrgent | typeof HeadingHeader | typeof HeadingImportant, regex: RegExp) {
 
     const matchText = _.isString(this.text) ? this.text : this.textDocument.getText(),
       matches = stringMatches(matchText, regex);
@@ -60,7 +60,7 @@ class Document {
 
   getItemAt(Item: typeof Line | typeof Archive | typeof Comment | typeof Formatted | typeof Project | typeof Tag | typeof Todo | typeof TodoBox |
     typeof TodoFinished | typeof TodoDone | typeof TodoCancelled | typeof TodoStarted | typeof TodoInfo | typeof TodoUnknown |
-    typeof TodoImportant | typeof HeadingHeader | typeof HeadingImportant, lineNumber: number, checkValidity = true) {
+    typeof TodoUrgent | typeof HeadingHeader | typeof HeadingImportant, lineNumber: number, checkValidity = true) {
 
     const line = this.textDocument.lineAt(lineNumber);
 
@@ -172,9 +172,9 @@ class Document {
 
   }
 
-  getTodosImportant() {
+  getTodosUrgent() {
 
-    return this.getItems(TodoImportant, Consts.regexes.todoImportant);
+    return this.getItems(TodoUrgent, Consts.regexes.todoUrgent);
 
   }
 

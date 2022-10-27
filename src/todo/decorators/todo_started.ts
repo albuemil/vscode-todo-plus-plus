@@ -18,7 +18,7 @@ const TODO_STARTED = vscode.window.createTextEditorDecorationType({
   },
 });
 
-/* TODO DONE */
+/* TODO STARTED */
 
 class TodoStarted extends Line {
   TYPES = [TODO_STARTED];

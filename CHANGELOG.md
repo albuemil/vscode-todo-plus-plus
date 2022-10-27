@@ -1,3 +1,6 @@
+### Version 0.6.3
+- renamed the "Important" tags as urgent as they are usually used for urgency, for important stuff we can use the Important heading
+
 ### Version 0.6.2
 - moved the Titles, Headers and Important titles under the Headings group, easier to manage
 

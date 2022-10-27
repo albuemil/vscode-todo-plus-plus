@@ -3,7 +3,7 @@
   "displayName": "YATD+",
   "description": "Yet Another Manage todo lists with ease. Powerful, easy to use and customizable. Based on fabiospampinato!s work",
   "icon": "resources/logo/logo-128x128.png",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "albuemil",
@@ -148,9 +148,9 @@
           "description": "Todo unknown string",
           "default": "⁉"
         },
-        "todo.symbols.important": {
+        "todo.symbols.urgent": {
           "type": "string",
-          "description": "Todo important/urgent string",
+          "description": "Todo urgent string",
           "default": "[‼]"
         },
         "todo.colors.done": {
@@ -178,14 +178,14 @@
           "description": "Unknown todo color",
           "default": "#CCCCFF"
         },
-        "todo.colors.important.foreground": {
+        "todo.colors.urgent.foreground": {
           "type": "string",
-          "description": "Important/urgent todo foreground color",
+          "description": "Urgent todo foreground color",
           "default": "#FFAEFB"
         },
-        "todo.colors.important.background": {
+        "todo.colors.urgent.background": {
           "type": "string",
-          "description": "Important/urgent todo background color",
+          "description": "Urgent todo background color",
           "default": "#FF3333"
         },
         "todo.colors.code": {
@@ -218,7 +218,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Header' background colors",
+          "description": "Header heading background colors",
           "default": [
             "#000000",
             "#000000",
@@ -237,7 +237,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Header' foreground colors",
+          "description": "Header heading foreground colors",
           "default": [
             "#aaedff",
             "#91e8ff",
@@ -256,7 +256,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Title' background colors",
+          "description": "Title heading background colors",
           "default": [
             "#aaedff",
             "#91e8ff",
@@ -275,7 +275,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Title' foreground colors",
+          "description": "Title heading foreground colors",
           "default": [
             "#000000",
             "#000000",
@@ -294,7 +294,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Important' background colors",
+          "description": "Important heading background colors",
           "default": [
             "#FDC0B3",
             "#FBA492",
@@ -308,7 +308,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Important' foreground colors",
+          "description": "Important heading foreground colors",
           "default": [
             "#000000",
             "#000000",
@@ -380,7 +380,7 @@
             "unknown": {
               "type": "string"
             },
-            "important": {
+            "urgent": {
               "type": "string"
             },
             "code": {
@@ -472,7 +472,7 @@
             "unknown": {
               "type": "string"
             },
-            "important": {
+            "urgent": {
               "type": "string"
             },
             "code": {
@@ -752,7 +752,7 @@
         "todo.statistics.statusbar.tooltip": {
           "type": "string",
           "description": "Template used for rendering the tooltip",
-          "default": "[pending] Pending - [important] Important - [doing] Doing - [done] Done - [cancelled] Cancelled - [unknown] Unknown ([info] Info)"
+          "default": "[pending] Pending - [urgent] Urgent - [doing] Doing - [done] Done - [cancelled] Cancelled - [unknown] Unknown ([info] Info)"
         },
         "todo.embedded.regex": {
           "type": "string",
@@ -927,8 +927,8 @@
         "title": "Todo: Toggle Unknown : ⁉"
       },
       {
-        "command": "todo.toggleImportant",
-        "title": "Todo: Toggle Important/Urgent : [‼]"
+        "command": "todo.toggleUrgent",
+        "title": "Todo: Toggle Urgent : [‼]"
       },
       {
         "command": "todo.toggleTimer",
@@ -1051,8 +1051,8 @@
         "title": "→ Toggle Info"
       },
       {
-        "command": "todo.editorToggleImportant",
-        "title": "[‼] Toggle Important"
+        "command": "todo.editorToggleUrgent",
+        "title": "[‼] Toggle Urgent"
       },
       {
         "command": "todo.editorToggleUnknown",
@@ -1091,8 +1091,18 @@
         "when": "editorTextFocus && editorLangId == todo"
       },
       {
+        "command": "todo.toggleUrgent",
+        "key": "Alt+u",
+        "when": "editorTextFocus && editorLangId == todo"
+      },
+      {
         "command": "todo.toggleInfo",
         "key": "Alt+i",
+        "when": "editorTextFocus && editorLangId == todo"
+      },
+      {
+        "command": "todo.toggleUnknown",
+        "key": "Shift+Alt+u",
         "when": "editorTextFocus && editorLangId == todo"
       },
       {
@@ -1154,7 +1164,7 @@
           "when": "editorLangId == todo"
         },
         {
-          "command": "todo.toggleImportant",
+          "command": "todo.toggleUrgent",
           "when": "editorLangId == todo"
         },
         {
@@ -1255,7 +1265,7 @@
           "when": "editorTextFocus && editorLangId == todo"
         },
         {
-          "command": "todo.editorToggleImportant",
+          "command": "todo.editorToggleUrgent",
           "group": "todo@2",
           "when": "editorTextFocus && editorLangId == todo"
         },
