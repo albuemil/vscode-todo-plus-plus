@@ -1,6 +1,5 @@
 # Todo+
 
-
 Based on Fabio Spampinatos work : https://github.com/fabiospampinato/vscode-todo-plus
 
 My changes :
@@ -10,7 +9,7 @@ My changes :
   - **Started**: `o` `O` `⭘` `⭕` `◯` `[o]` `[O]` `[⭘]` `[⭕]` `[◯]` `⇶` `[⇶]` `[=]`
   - **Info**: `-` `→` `⇾` `›` `>` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[>]` `[–]` `[—]` `[≡]`
   - **Unknown**: `⁉` `[?]` `[⁉]`
-  - **Important**: `[!]` `[‼]`
+  - **Urgent**: `[!]` `[‼]`
 - sort lines by line number of label (from https://github.com/fabiospampinato/vscode-todo-plus/pull/311 )
 - add a focus view for @thisweek/@today (from https://github.com/fabiospampinato/vscode-todo-plus/compare/master...clarsen:vscode-todo-plus:master )
 - headings :
@@ -18,9 +17,7 @@ My changes :
   - titles, 10 levels, same as headers but use the "=" character
   - important entries, 5 levels, same as headers, use the "!" character
 
-
 ---
-
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/fabiospampinato/vscode-todo-plus/master/resources/logo/logo.png" width="128" alt="Logo">
@@ -39,7 +36,7 @@ Manage todo lists with ease. Powerful, easy to use and customizable. [View the d
   - **Cancelled**: `✘` `x` `X` `[-]`
   - **Info**: `-` `→` `⇾` `›` `–` `—` `≡` `[.]` `[→]` `[⇾]` `[›]` `[–]` `[—]` `[≡]`
   - **Unknown**: `⁉` `[?]` `[⁉]`
-  - **Important**: `[!]` `[‼]`
+  - **Urgent**: `[!]` `[‼]`
 - **Custom colors**: all colors can be customized
 - **Custom special tags**: special tags' names and their colors can be customized
 - **Archive**: you can move finished todos to a special "Archive" section with a shortcut
@@ -63,35 +60,37 @@ ext install fabiospampinato.vscode-todo-plus
 
 ## Usage
 
-It adds 11 commands to the command palette:
+It adds 14 commands to the command palette:
 
 ```js
-'Todo: Open' // Open or create your project's todo file
-'Todo: Open Embedded' // Open embedded todos
-'Todo: Toggle Box : ☐' // Toggle todo's box symbol
-'Todo: Toggle Important/Urgent : ‼' // Toggle a todo as important/urgent
-'Todo: Toggle Done : ✔' // Toggle todo's done symbol
-'Todo: Toggle Cancelled : ✘' // Toggle todo's cancelled symbol
-'Todo: Toggle Started : ⇶' // Toggle a todo as started
-'Todo: Toggle Info : →' // Toggle a todo as info
-'Todo: Toggle Unknown : ⁉' // Toggle a todo as unknown
-'Todo: Toggle Timer' // Toggle the timer
-'Todo: Archive' // Archive finished todos
-'Todo: Embedded View - Filter' // Filter the embedded todos view
-'Todo: Embedded View - Clear Filter' // Clear the filter in the embedded todos view
-'Todo: Embedded View - Toggle View All Files' // Toggle between viewing all files or only the current one
+"Todo: Open"; // Open or create your project's todo file
+"Todo: Open Embedded"; // Open embedded todos
+"Todo: Toggle Box : ☐"; // Toggle todo's box symbol
+"Todo: Toggle Urgent : [‼]"; // Toggle a todo as urgent
+"Todo: Toggle Done : ✔"; // Toggle todo's done symbol
+"Todo: Toggle Cancelled : ✘"; // Toggle todo's cancelled symbol
+"Todo: Toggle Started : ⇶"; // Toggle a todo as started
+"Todo: Toggle Info : →"; // Toggle a todo as info
+"Todo: Toggle Unknown : ⁉"; // Toggle a todo as unknown
+"Todo: Toggle Timer"; // Toggle the timer
+"Todo: Archive"; // Archive finished todos
+"Todo: Embedded View - Filter"; // Filter the embedded todos view
+"Todo: Embedded View - Clear Filter"; // Clear the filter in the embedded todos view
+"Todo: Embedded View - Toggle View All Files"; // Toggle between viewing all files or only the current one
 ```
 
-It adds 6 shortcuts when editing a `Todo` file:
+It adds 9 shortcuts when editing a `Todo` file:
 
 ```js
-'Cmd/Ctrl+Enter' // Triggers `Todo: Toggle Box`
-'Alt+Enter' // Triggers `Todo: Toggle Box`
-'Alt+D' // Triggers `Todo: Toggle Done`
-'Alt+C' // Triggers `Todo: Toggle Cancelled`
-'Alt+I' // Triggers `Todo: Toggle Info`
-'Alt+S' // Triggers `Todo: Toggle Start`
-'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`
+"Cmd/Ctrl+Enter"; // Triggers `Todo: Toggle Box`
+"Alt+Enter"; // Triggers `Todo: Toggle Box`
+"Alt+U"; // Triggers `Todo: Toggle Urgent`
+"Alt+D"; // Triggers `Todo: Toggle Done`
+"Alt+C"; // Triggers `Todo: Toggle Cancelled`
+"Alt+I"; // Triggers `Todo: Toggle Info`
+"Alt+S"; // Triggers `Todo: Toggle Start`
+"Alt+Shift+U"; // Triggers `Todo: Toggle Unknown`
+"Cmd/Ctrl+Shift+A"; // Triggers  `Todo: Archive`
 ```
 
 ## Settings
@@ -110,14 +109,14 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.symbols.started": "⇶", // Started symbol
   "todo.symbols.info": "→", // Info symbol
   "todo.symbols.unknown": "⁉", // Unknown symbol
-  "todo.symbols.important": "‼", // Important/Urgent symbol
+  "todo.symbols.urgent": "[‼]", // Urgent symbol
   "todo.colors.done": "#a6e22e", // Done todo color
   "todo.colors.cancelled": "#f92672", // Cancelled todo color
   "todo.colors.code": "#fd971f", // Code color
   "todo.colors.info": "#9E9EFF", // Info color
   "todo.colors.unknown": "#CCCCFF", // Unknown color
-  "todo.colors.important": "#E6A1A8", // Important/Urgent color
-  "todo.colors.important.background": "#600B27", // Important/Urgent background color
+  "todo.colors.urgent.foreground": "#E6A1A8", // Urgent foreground color
+  "todo.colors.urgent.background": "#600B27", // Urgent background color
   "todo.colors.comment": "#75715e", // Comment color
   "todo.colors.project": "#66d9ef", // Project color
   "todo.colors.projectStatistics": "#4694a3", // Project statistics color
@@ -127,10 +126,12 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.colors.types": { "TODO": "#ffcc00", "FIXME": "#cc0000" ... }, // Object mapping todo types to their color
   "todo.colors.dark": { /* "done": "white", ... */ }, // Colors for dark themes
   "todo.colors.light": { /* "done": "black", ... */ }, // Colors for light themes
-  "todo.colors.headers.background": ["#000000", "#000000","#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"], // Colors for header background
-  "todo.colors.headers.foreground": ["#aaedff", "#91e8ff", "#64dfff", "#00d4ff", "#00aad3", "#0082a9", "#00688f", "#014c73", "#01375d", "#01284e"], // Colors for header foreground
-  "todo.colors.titles.background": [["#aaedff", "#91e8ff", "#64dfff", "#00d4ff", "#00aad3", "#0082a9", "#00688f", "#014c73", "#01375d", "#01284e"], // Colors for title background
-  "todo.colors.titles.foreground": "#000000", "#000000","#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"], // Colors for title foreground
+  "todo.colors.headings.header.background": ["#000000", "#000000","#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"], // Colors for header heading background
+  "todo.colors.headings.header.foreground": ["#aaedff", "#91e8ff", "#64dfff", "#00d4ff", "#00aad3", "#0082a9", "#00688f", "#014c73", "#01375d", "#01284e"], // Colors for header heading foreground
+  "todo.colors.headings.title.background": ["#aaedff", "#91e8ff", "#64dfff", "#00d4ff", "#00aad3", "#0082a9", "#00688f", "#014c73", "#01375d", "#01284e"], // Colors for title heading background
+  "todo.colors.headings.title.foreground": ["#000000", "#000000","#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"], // Colors for title heading foreground
+  "todo.colors.headings.important.background": ["#FDC0B3","#FBA492","#FE856B","#FF5D3B","#FF2D00"], // Colors for important heading background
+  "todo.colors.headings.important.foreground": ["#000000","#000000","#FFE0F3","#FFE0F3","#FFE0F3"], // Colors for important heading foreground
   "todo.tags.names": ["critical", "high", "low", "today"], // Special tags' names
   "todo.tags.namesInference": true, // Infer commonly used tags' names
   "todo.archive.name": "Archive", // Name of the special "Archive" section
@@ -164,7 +165,7 @@ It adds 6 shortcuts when editing a `Todo` file:
   "todo.statistics.statusbar.command": "", // Command to execute on click
   "todo.statistics.statusbar.priority": -1, // The priority of this item. Higher value means the item should be shown more to the left
   "todo.statistics.statusbar.text": "$(check) [finished]/[all] ([percentage]%)", // Template used for rendering the text
-  "todo.statistics.statusbar.tooltip": "[pending] Pending - [important] Important - [doing] Doing - [done] Done - [cancelled] Cancelled - [unknown] Unknown ([info] Info)", // Template used for rendering the tooltip
+  "todo.statistics.statusbar.tooltip": "[pending] Pending - [urgent] Urgent - [doing] Doing - [done] Done - [cancelled] Cancelled - [unknown] Unknown ([info] Info)", // Template used for rendering the tooltip
   "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(TODO|FIXME|FIX|BUG|UGLY|HACK|NOTE|IDEA|REVIEW|DEBUG|OPTIMIZE)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
   "todo.embedded.regexFlags": "gi", // Regex flags to use
   "todo.embedded.include": ["**/*"], // Globs to use for including files
@@ -209,28 +210,28 @@ This extension supports various providers for searching for embedded todos, it'l
 
 The following tokens can be used in `todo.statistics.project.text`, `todo.statistics.statusbar.text` and `todo.statistics.statusbar.tooltip`, they will be replaced with the value they represent.
 
-| Token                        | Value                                          |
-|------------------------------|------------------------------------------------|
-| `[comments]`                 | Number of comments                             |
-| `[projects]`                 | Number of projects                             |
-| `[tags]`                     | Number of tags                                 |
-| `[pending]`                  | Number of pending todos                        |
-| `[doing]`                    | Number of doing/on progress todos              |
-| `[done]`                     | Number of done todos                           |
-| `[cancelled]`                | Number of cancelled todos                      |
-| `[finished]`                 | Number of finished todos                       |
-| `[info]`                     | Number of info todos                           |
-| `[unknown]`                  | Number of unknown todos                        |
-| `[important]`                | Number of important/urgent todos               |
-| `[all]`                      | Number of todos                                |
-| `[percentage]`               | Percentage of finished todos                   |
-| `[est]`                      | Estimated time left                            |
-| `[est-total]`                | Total estimated time                           |
-| `[est-finished]`             | Estimated time of finished todos               |
-| `[est-finished-percentage]`  | Percentage of estimated time in finished todos |
-| `[lasted]`                   | Time the task lasted                           |
-| `[wasted]`                   | Time wasted on task                            |
-| `[elapsed]`                  | Sum of `[lasted]` and `[wasted]`               |
+| Token                       | Value                                          |
+| --------------------------- | ---------------------------------------------- |
+| `[comments]`                | Number of comments                             |
+| `[projects]`                | Number of projects                             |
+| `[tags]`                    | Number of tags                                 |
+| `[pending]`                 | Number of pending todos                        |
+| `[doing]`                   | Number of doing/on progress todos              |
+| `[done]`                    | Number of done todos                           |
+| `[cancelled]`               | Number of cancelled todos                      |
+| `[finished]`                | Number of finished todos                       |
+| `[info]`                    | Number of info todos                           |
+| `[unknown]`                 | Number of unknown todos                        |
+| `[urgent]`                  | Number of urgent todos                         |
+| `[all]`                     | Number of todos                                |
+| `[percentage]`              | Percentage of finished todos                   |
+| `[est]`                     | Estimated time left                            |
+| `[est-total]`               | Total estimated time                           |
+| `[est-finished]`            | Estimated time of finished todos               |
+| `[est-finished-percentage]` | Percentage of estimated time in finished todos |
+| `[lasted]`                  | Time the task lasted                           |
+| `[wasted]`                  | Time wasted on task                            |
+| `[elapsed]`                 | Sum of `[lasted]` and `[wasted]`               |
 
 ## Demo
 

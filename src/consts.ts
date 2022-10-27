@@ -21,9 +21,9 @@ const Consts = {
         started: _.get(config, `${root}.started`),
         info: _.get(config, `${root}.info`),
         unknown: _.get(config, `${root}.unknown`),
-        important: {
-          background: _.get(config, `${root}.important.background`),
-          foreground: _.get(config, `${root}.important.foreground`),
+        urgent: {
+          background: _.get(config, `${root}.urgent.background`),
+          foreground: _.get(config, `${root}.urgent.foreground`),
         },
         code: _.get(config, `${root}.code`),
         comment: _.get(config, `${root}.comment`),
@@ -64,7 +64,7 @@ const Consts = {
         started: _.get(config, 'symbols.started'),
         info: _.get(config, 'symbols.info'),
         unknown: _.get(config, 'symbols.unknown'),
-        important: _.get(config, 'symbols.important'),
+        urgent: _.get(config, 'symbols.urgent'),
         tag: '@'
       },
       colors: _.extend(getColors('colors'), {
@@ -86,7 +86,7 @@ const Consts = {
         todoFinished: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[✔✓☑+✘xX]|\[[xX+-]\])\s[^\n]*)|(?:(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶]|\[ ?\])\s[^\n]*[^a-zA-Z0-9]@(?:done|cancelled)(?:(?:\([^)]*\))|(?![a-zA-Z]))[^\n]*)))/gm,
         todoInfo: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[-–—≡→›>⇾]|\[[–—≡→›>⇾\.]+\])\s[^\n]*)))/gm,
         todoUnknown: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[⁉]|\[[⁉?]+\])\s[^\n]*)))/gm,
-        todoImportant: /^[^\S\n]*((?!--|––|——)(?:(?:(?:\[[‼!]+\])\s[^\n]*)))/gm,
+        todoUrgent: /^[^\S\n]*((?!--|––|——)(?:(?:(?:\[[‼!]+\])\s[^\n]*)))/gm,
         todoEmbedded: new RegExp(_.get(config, 'embedded.regex'), _.get(config, 'embedded.regexFlags')),
         project: /^(?![^\S\n]*(?!--|––|——)(?:[-❍❑■⬜□☐▪▫–—≡→›>⇾⇶✘xX✔✓☑+oO⭘⭕◯⁉]|([#=!‼]+)|\[[ xX+-oO⭘⭕◯‼⁉=–—≡→›>⇾⇶\.!]?\])\s[^\n]*)[^\S\n]*(.+:)[^\S\n]*(?:(?=@[^\s*~(]+(?::\/\/[^\s*~(:]+)?(?:\([^)]*\))?)|$)/gm,
         projectParts: /(\s*)(.+):(.*)/,
@@ -106,13 +106,13 @@ const Consts = {
         formattedBold: /(?:^|[^a-zA-Z0-9])(\*[^\n*]+\*)(?![a-zA-Z])/gm,
         formattedItalic: /(?:^|[^a-zA-Z0-9])(_[^\n_]+_)(?![a-zA-Z])/gm,
         formattedStrikethrough: /(?:^|[^a-zA-Z0-9])(~[^\n~]+~)(?![a-zA-Z])/gm,
-        // # header entries
+        // # heading - header entries
         headingHeader: /^[^\S\n]*((?!--|––|——)(?:(?:(?:#+)\s[^\n]*)))/gm,
-        // = title entries
+        // = heading - title entries
         headingTitle: /^[^\S\n]*((?!--|––|——)(?:(?:(?:=+)\s[^\n]*)))/gm,
-        // ! important entries
+        // ! heading - important entries
         headingImportant: /^[^\S\n]*((?!--|––|——)(?:(?:(?:[!‼]+)\s[^\n]*)))/gm,
-        // filters for getting the symbols
+        // filters for headings
         headings: /^(\s*)(.+:|[#=!‼]+.+)/gm,
         headingParts: /(\s*)((.+)(:)|([#=!‼]+)(.+))(.*)/,
       }

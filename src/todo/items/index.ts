@@ -16,7 +16,7 @@ import TodoCancelled from './todo_cancelled';
 import TodoStarted from './todo_started';
 import TodoInfo from './todo_info';
 import TodoUnknown from './todo_unknown';
-import TodoImportant from './todo_important';
+import TodoUrgent from './todo_urgent';
 import HeadingHeader from './heading_header';
 import HeadingTitle from './heading_title';
 import HeadingImportant from './heading_important';
@@ -25,5 +25,5 @@ import HeadingImportant from './heading_important';
 
 export {
     Archive, Comment, Formatted, Item, Line, Project, Tag, HeadingHeader, HeadingTitle, HeadingImportant,
-    Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant
+    Todo, TodoBox, TodoFinished, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoUrgent
 };

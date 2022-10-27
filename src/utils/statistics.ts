@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import * as vscode from 'vscode';
 import Config from '../config';
 import Consts from '../consts';
-import {Comment, Project, Tag, TodoBox, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoImportant} from '../todo/items';
+import { Comment, Project, Tag, TodoBox, TodoDone, TodoCancelled, TodoStarted, TodoInfo, TodoUnknown, TodoUrgent } from '../todo/items';
 import AST from './ast';
 import Tokens from './statistics_tokens';
 import Time from './time';
@@ -18,39 +18,39 @@ const Statistics = {
 
   timeTags: {
 
-    add ( tag: string, tokens: Tokens, disabledTokens, disabledEst = false ) {
+    add(tag: string, tokens: Tokens, disabledTokens, disabledEst = false) {
 
       const prefix = tag[1];
 
-      if ( !disabledTokens.lasted && prefix === 'l' ) { // Maybe @lasted(2h)
+      if (!disabledTokens.lasted && prefix === 'l') { // Maybe @lasted(2h)
 
-        tokens.lastedSeconds += Statistics.timeTags.parseElapsed ( tag );
+        tokens.lastedSeconds += Statistics.timeTags.parseElapsed(tag);
 
-      } else if ( !disabledTokens.wasted && prefix === 'w' ) { // maybe @wasted(30m)
+      } else if (!disabledTokens.wasted && prefix === 'w') { // maybe @wasted(30m)
 
-        tokens.wastedSeconds += Statistics.timeTags.parseElapsed ( tag );
+        tokens.wastedSeconds += Statistics.timeTags.parseElapsed(tag);
 
-      } else if ( !disabledTokens.est && ( prefix === 'e' || ( prefix >= '0' && prefix <= '9' ) ) ) { // Maybe @est(1h20m) or @1h20m
+      } else if (!disabledTokens.est && (prefix === 'e' || (prefix >= '0' && prefix <= '9'))) { // Maybe @est(1h20m) or @1h20m
 
-        tokens.estTotalSeconds += Statistics.timeTags.parseEstimate ( tag );
+        tokens.estTotalSeconds += Statistics.timeTags.parseEstimate(tag);
 
-        if ( !disabledEst ) tokens.estSeconds += Statistics.timeTags.parseEstimate ( tag );
+        if (!disabledEst) tokens.estSeconds += Statistics.timeTags.parseEstimate(tag);
 
       }
     },
 
     elapseds: {},
 
-    parseElapsed ( tag: string ) {
+    parseElapsed(tag: string) {
 
-      if ( Statistics.timeTags.elapseds[tag] ) return Statistics.timeTags.elapseds[tag];
+      if (Statistics.timeTags.elapseds[tag]) return Statistics.timeTags.elapseds[tag];
 
-      const match = tag.match ( Consts.regexes.tagElapsed );
+      const match = tag.match(Consts.regexes.tagElapsed);
 
-      if ( !match ) return 0;
+      if (!match) return 0;
 
       const time = match[1],
-            seconds = Time.diffSeconds ( time );
+        seconds = Time.diffSeconds(time);
 
       Statistics.timeTags.elapseds[tag] = seconds;
 
@@ -60,16 +60,16 @@ const Statistics = {
 
     estimates: {}, // It assumes that all estimates are relative to `now`
 
-    parseEstimate ( tag: string, from?: Date ) {
+    parseEstimate(tag: string, from?: Date) {
 
-      if ( Statistics.timeTags.estimates[tag] ) return Statistics.timeTags.estimates[tag];
+      if (Statistics.timeTags.estimates[tag]) return Statistics.timeTags.estimates[tag];
 
-      const est = tag.match ( Consts.regexes.tagEstimate );
+      const est = tag.match(Consts.regexes.tagEstimate);
 
-      if ( !est ) return 0;
+      if (!est) return 0;
 
       const time = est[2] || est[1],
-            seconds = Time.diffSeconds ( time, from );
+        seconds = Time.diffSeconds(time, from);
 
       Statistics.timeTags.estimates[tag] = seconds;
 
@@ -85,11 +85,11 @@ const Statistics = {
 
     functions: {}, // Cache of functions created from conditions
 
-    toFunction ( condition ) { // Avoiding repeatedly calling `eval`
+    toFunction(condition) { // Avoiding repeatedly calling `eval`
 
-      if ( Statistics.condition.functions[condition] ) return Statistics.condition.functions[condition];
+      if (Statistics.condition.functions[condition]) return Statistics.condition.functions[condition];
 
-      const fn = new Function ( 'global', 'project', `return ${condition}` );
+      const fn = new Function('global', 'project', `return ${condition}`);
 
       Statistics.condition.functions[condition] = fn;
 
@@ -97,19 +97,19 @@ const Statistics = {
 
     },
 
-    is ( condition, globalTokens, projectTokens ) {
+    is(condition, globalTokens, projectTokens) {
 
-      if ( _.isBoolean ( condition ) ) return condition;
+      if (_.isBoolean(condition)) return condition;
 
-      if ( !globalTokens && !projectTokens ) return false;
+      if (!globalTokens && !projectTokens) return false;
 
-      const fn = Statistics.condition.toFunction ( condition );
+      const fn = Statistics.condition.toFunction(condition);
 
       try {
 
-        return !!fn ( globalTokens, projectTokens );
+        return !!fn(globalTokens, projectTokens);
 
-      } catch ( e ) {
+      } catch (e) {
 
         return false;
 
@@ -128,25 +128,25 @@ const Statistics = {
       projects: {}
     },
 
-    updateDisabledAll () {
+    updateDisabledAll() {
 
       const tokens = ['est', 'est-total', 'lasted', 'wasted', 'elapsed', 'est-finished', 'est-finished-percentage']; // These are the expensive tokens
 
       const globalSettings = ['statistics.statusbar.enabled', 'statistics.statusbar.text', 'statistics.statusbar.tooltip']; // Global settings where tokens could be in use
 
-      Statistics.tokens.updateDisabled ( Statistics.tokens.disabled.global, tokens, globalSettings );
+      Statistics.tokens.updateDisabled(Statistics.tokens.disabled.global, tokens, globalSettings);
 
       const projectsSettings = ['statistics.project.enabled', 'statistics.project.text']; // Local settings where tokens could be in use
 
-      Statistics.tokens.updateDisabled ( Statistics.tokens.disabled.projects, tokens, projectsSettings );
+      Statistics.tokens.updateDisabled(Statistics.tokens.disabled.projects, tokens, projectsSettings);
 
     },
 
-    updateDisabled ( obj, tokens: string[], settings: string[] ) { // Ugly name,
+    updateDisabled(obj, tokens: string[], settings: string[]) { // Ugly name,
 
-      tokens.forEach ( token => {
+      tokens.forEach(token => {
 
-        obj[token] = !settings.find ( setting => _.includes ( Config.getKey ( setting ), token ) );
+        obj[token] = !settings.find(setting => _.includes(Config.getKey(setting), token));
 
       });
 
@@ -154,23 +154,23 @@ const Statistics = {
 
     global: {},
 
-    updateGlobal ( items ) {
+    updateGlobal(items) {
 
-      if ( items.archive && Config.getKey ( 'statistics.statusbar.ignoreArchive' ) ) { // Keeping only items before the archive
+      if (items.archive && Config.getKey('statistics.statusbar.ignoreArchive')) { // Keeping only items before the archive
 
-        items = _.reduce ( items, ( acc, value, key ) => {
+        items = _.reduce(items, (acc, value, key) => {
 
-          const newValue = _.isArray ( value ) ? value.filter ( item => item.lineNumber < items.archive.lineNumber ) : value;
+          const newValue = _.isArray(value) ? value.filter(item => item.lineNumber < items.archive.lineNumber) : value;
 
           acc[key] = newValue;
 
           return acc;
 
-        }, {} );
+        }, {});
 
       }
 
-      const tokens = _.extend ( new Tokens (), {
+      const tokens = _.extend(new Tokens(), {
         comments: items.comments.length,
         projects: items.projects.length,
         tags: items.tags.length,
@@ -180,10 +180,10 @@ const Statistics = {
         cancelled: items.todosCancelled.length,
         info: items.todosInfo.length,
         unknown: items.todosUnknown.length,
-        important: items.todosImportant.length,
+        urgent: items.todosUrgent.length,
       });
 
-      items.tags.forEach ( tag => Statistics.timeTags.add ( tag.text, tokens, Statistics.tokens.disabled.global ) );
+      items.tags.forEach(tag => Statistics.timeTags.add(tag.text, tokens, Statistics.tokens.disabled.global));
 
       Statistics.tokens.global = tokens;
 
@@ -191,68 +191,68 @@ const Statistics = {
 
     projects: {},
 
-    updateProjects ( textDocument: vscode.TextDocument, items ) {
+    updateProjects(textDocument: vscode.TextDocument, items) {
 
       Statistics.tokens.projects = {};
 
-      if ( !items.projects ) return;
+      if (!items.projects) return;
 
-      function mergeSorted ( arr1, arr2 ) { //URL: https://stackoverflow.com/questions/5958169/how-to-merge-two-sorted-arrays-into-a-sorted-array#answer-31310853
+      function mergeSorted(arr1, arr2) { //URL: https://stackoverflow.com/questions/5958169/how-to-merge-two-sorted-arrays-into-a-sorted-array#answer-31310853
 
-        const merged = new Array ( arr1.length + arr2.length );
+        const merged = new Array(arr1.length + arr2.length);
 
         let i = arr1.length - 1,
-            j = arr2.length - 1,
-            k = merged.length;
+          j = arr2.length - 1,
+          k = merged.length;
 
-        while ( k ) {
-          merged[--k] = ( j < 0 || ( i >= 0 && arr1[i].lineNumber > arr2[j].lineNumber ) ) ? arr1[i--] : arr2[j--];
+        while (k) {
+          merged[--k] = (j < 0 || (i >= 0 && arr1[i].lineNumber > arr2[j].lineNumber)) ? arr1[i--] : arr2[j--];
         }
 
         return merged;
 
       }
 
-      const groups = [items.projects, items.todosBox, items.todosStarted, items.todosDone, items.todosCancelled, items.todosInfo, items.todosUnknown, items.todosImportant, items.tags],
-            lines = groups.reduce ( ( arr1, arr2 ) => mergeSorted ( arr1, arr2 ) );
+      const groups = [items.projects, items.tags, items.todosBox, items.todosStarted, items.todosDone, items.todosCancelled, items.todosInfo, items.todosUnknown, items.todosUrgent],
+        lines = groups.reduce((arr1, arr2) => mergeSorted(arr1, arr2));
 
-      items.projects.forEach ( project => {
-        Statistics.tokens.updateProject ( textDocument, project, lines, lines.indexOf ( project ) );
+      items.projects.forEach(project => {
+        Statistics.tokens.updateProject(textDocument, project, lines, lines.indexOf(project));
       });
 
     },
 
-    updateProject ( textDocument: vscode.TextDocument, project, lines, lineNr: number ) {
+    updateProject(textDocument: vscode.TextDocument, project, lines, lineNr: number) {
 
-      if ( Statistics.tokens.projects[project.lineNumber] ) return Statistics.tokens.projects[project.lineNumber];
+      if (Statistics.tokens.projects[project.lineNumber]) return Statistics.tokens.projects[project.lineNumber];
 
-      project.level = ( project.level || AST.getLevel ( textDocument, project.line.text ) );
+      project.level = (project.level || AST.getLevel(textDocument, project.line.text));
 
-      const tokens = new Tokens ();
+      const tokens = new Tokens();
 
       let wasPending = false;
 
-      for ( let i = lineNr + 1, l = lines.length; i < l; i++ ) {
+      for (let i = lineNr + 1, l = lines.length; i < l; i++) {
 
         const nextItem = lines[i];
 
-        if ( nextItem instanceof Tag ) {
+        if (nextItem instanceof Tag) {
 
           tokens.tags++;
 
-          Statistics.timeTags.add ( nextItem.text, tokens, Statistics.tokens.disabled.projects, !wasPending );
+          Statistics.timeTags.add(nextItem.text, tokens, Statistics.tokens.disabled.projects, !wasPending);
 
         } else {
 
-          nextItem.level = ( nextItem.level || AST.getLevel ( textDocument, nextItem.line.text ) );
+          nextItem.level = (nextItem.level || AST.getLevel(textDocument, nextItem.line.text));
 
-          if ( nextItem.level <= project.level ) break;
+          if (nextItem.level <= project.level) break;
 
           wasPending = nextItem instanceof TodoBox;
 
-          if ( nextItem instanceof Project ) {
+          if (nextItem instanceof Project) {
 
-            const nextTokens = Statistics.tokens.updateProject ( textDocument, nextItem, lines, i );
+            const nextTokens = Statistics.tokens.updateProject(textDocument, nextItem, lines, i);
 
             tokens.comments += nextTokens.comments;
             tokens.projects += 1 + nextTokens.projects;
@@ -263,46 +263,32 @@ const Statistics = {
             tokens.cancelled += nextTokens.cancelled;
             tokens.info += nextTokens.info;
             tokens.unknown += nextTokens.unknown;
-            tokens.important += nextTokens.important;
+            tokens.urgent += nextTokens.urgent;
             tokens.estSeconds += nextTokens.estSeconds;
             tokens.estTotalSeconds += nextTokens.estTotalSeconds;
             tokens.lastedSeconds += nextTokens.lastedSeconds;
             tokens.wastedSeconds += nextTokens.wastedSeconds;
 
-            i += nextTokens.comments + nextTokens.projects + nextTokens.tags + nextTokens.pending + nextTokens.doing + nextTokens.done + nextTokens.cancelled + nextTokens.info + nextTokens.unknown + nextTokens.important; // Jumping
+            i += nextTokens.comments + nextTokens.projects + nextTokens.tags + nextTokens.pending + nextTokens.doing + nextTokens.done + nextTokens.cancelled + nextTokens.info + nextTokens.unknown + nextTokens.urgent; // Jumping
 
-          } if ( nextItem instanceof Comment ) {
+          }
 
+          if (nextItem instanceof Comment) {
             tokens.comments++;
-
-          } else if ( nextItem instanceof TodoBox ) {
-
+          } else if (nextItem instanceof TodoBox) {
             tokens.pending++;
-
-          } else if ( nextItem instanceof TodoStarted ) {
-
+          } else if (nextItem instanceof TodoStarted) {
             tokens.doing++;
-
-          } else if ( nextItem instanceof TodoDone ) {
-
+          } else if (nextItem instanceof TodoDone) {
             tokens.done++;
-
-          } else if ( nextItem instanceof TodoCancelled ) {
-
+          } else if (nextItem instanceof TodoCancelled) {
             tokens.cancelled++;
-
-          } else if ( nextItem instanceof TodoInfo ) {
-
+          } else if (nextItem instanceof TodoInfo) {
             tokens.info++;
-
-          } else if ( nextItem instanceof TodoUnknown ) {
-
+          } else if (nextItem instanceof TodoUnknown) {
             tokens.unknown++;
-
-          }else if ( nextItem instanceof TodoImportant ) {
-
-            tokens.important++;
-
+          } else if (nextItem instanceof TodoUrgent) {
+            tokens.urgent++;
           }
 
         }
@@ -323,11 +309,11 @@ const Statistics = {
 
     tokensRe: {}, // Map of `token => tokenRe`
 
-    getTokenRe ( token ) {
+    getTokenRe(token) {
 
-      if ( Statistics.template.tokensRe[token] ) return Statistics.template.tokensRe[token];
+      if (Statistics.template.tokensRe[token]) return Statistics.template.tokensRe[token];
 
-      const re = new RegExp ( `\\[${_.escapeRegExp ( token )}\\]`, 'g' );
+      const re = new RegExp(`\\[${_.escapeRegExp(token)}\\]`, 'g');
 
       Statistics.template.tokensRe[token] = re;
 
@@ -335,17 +321,17 @@ const Statistics = {
 
     },
 
-    render ( template: string, tokens = Statistics.getTokens () ) {
+    render(template: string, tokens = Statistics.getTokens()) {
 
-      if ( !tokens ) return;
+      if (!tokens) return;
 
-      for ( let token of Tokens.supported ) {
+      for (let token of Tokens.supported) {
 
-        const re = Statistics.template.getTokenRe ( token );
+        const re = Statistics.template.getTokenRe(token);
 
-        if ( !re.test ( template ) ) continue;
+        if (!re.test(template)) continue;
 
-        template = template.replace ( re, tokens[token] );
+        template = template.replace(re, tokens[token]);
 
       }
 

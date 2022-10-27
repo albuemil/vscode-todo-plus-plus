@@ -74,10 +74,9 @@ Info:
   › Info
   > Info
 
-Important:
-  ‼ important
-  [!] important
-  [‼] important
+Urgent:
+  [!] urgent
+  [‼] urgent
 
 Unknown:
   ⁉ unknown
