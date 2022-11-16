@@ -1,3 +1,6 @@
+### Version 0.6.4
+- Fix show only active file from https://github.com/fabiospampinato/vscode-todo-plus/compare/master...regs01:vscode-todo-plus:master
+
 ### Version 0.6.3
 - renamed the "Important" tags as urgent as they are usually used for urgency, for important stuff we can use the Important heading
 
