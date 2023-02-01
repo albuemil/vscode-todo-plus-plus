@@ -1,3 +1,8 @@
+############################
+### Emil's Changes
+### Version 0.6.5
+- Merged Fabio's Version 4.19.1
+
 ### Version 0.6.4
 - Fix show only active file from https://github.com/fabiospampinato/vscode-todo-plus/compare/master...regs01:vscode-todo-plus:master
 
@@ -42,7 +47,12 @@
 - Added support for colloring the "working" (or "in progress") tasks
 - rename the extension to "Yet Another ToDo+" (YATD+ for short)
 
-##################
+############################
+### Original Fabio's Code
+
+### Version 4.19.1
+- Fixed slow update of statistics decorations (fixes #210) (#367) (thanks to @squidfunk and @marvinhagemeister)
+- Minor code style tweaks
 
 ### Version 4.19.0
 - Added "todo.embedded.view.sortBy" setting
